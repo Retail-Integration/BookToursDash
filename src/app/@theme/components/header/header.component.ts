@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     {
       value: 'dark',
       name: 'Dark',
-    }
+    },
   ];
 
   currentTheme = 'default';
