@@ -8,7 +8,7 @@ describe('BookingsCalanderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BookingsCalanderComponent ]
+      declarations: [ BookingsCalanderComponent ],
     })
     .compileComponents();
   }));

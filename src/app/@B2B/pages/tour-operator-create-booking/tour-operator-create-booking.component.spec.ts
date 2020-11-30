@@ -8,7 +8,7 @@ describe('TourOperatorCreateBookingComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TourOperatorCreateBookingComponent ]
+      declarations: [ TourOperatorCreateBookingComponent ],
     })
     .compileComponents();
   }));

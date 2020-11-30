@@ -46,7 +46,7 @@ export class SmartTableService extends SmartTableData {
     role: 'readonly',
     email: 'ann@gmail.com',
     age: '21',
-  }
+  },
 ];
 
   getData() {

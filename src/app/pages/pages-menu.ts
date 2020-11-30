@@ -88,7 +88,7 @@ export const STAFF_ITEMS: NbMenuItem[] = [
     title: 'Reports',
     icon: 'home-outline',
     link: '/pages/tables/smart-table',
-  }
+  },
 ];
 
 export const RETAILER_ITEMS: NbMenuItem[] = [

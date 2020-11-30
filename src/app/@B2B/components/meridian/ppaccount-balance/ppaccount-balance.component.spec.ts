@@ -8,7 +8,7 @@ describe('PPAccountBalanceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PPAccountBalanceComponent ]
+      declarations: [ PPAccountBalanceComponent ],
     })
     .compileComponents();
   }));

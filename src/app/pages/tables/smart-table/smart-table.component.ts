@@ -45,7 +45,7 @@ export class SmartTableComponent {
       email: {
         title: 'E-mail',
         type: 'string',
-      }
+      },
     },
   };
 

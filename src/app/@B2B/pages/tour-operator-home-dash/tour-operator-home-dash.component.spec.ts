@@ -8,7 +8,7 @@ describe('TourOperatorHomeDashComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TourOperatorHomeDashComponent ]
+      declarations: [ TourOperatorHomeDashComponent ],
     })
     .compileComponents();
   }));

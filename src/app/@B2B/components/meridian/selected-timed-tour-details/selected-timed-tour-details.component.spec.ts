@@ -8,7 +8,7 @@ describe('SelectedTimedTourDetailsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectedTimedTourDetailsComponent ]
+      declarations: [ SelectedTimedTourDetailsComponent ],
     })
     .compileComponents();
   }));

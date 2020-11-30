@@ -8,7 +8,7 @@ describe('RetailerHomeDashComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RetailerHomeDashComponent ]
+      declarations: [ RetailerHomeDashComponent ],
     })
     .compileComponents();
   }));

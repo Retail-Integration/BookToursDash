@@ -38,7 +38,11 @@ import { PPAccountBalanceComponent } from './@B2B/components/meridian/ppaccount-
 import { RetailerHomeDashComponent } from './@B2B/pages/retailer-home-dash/retailer-home-dash.component';
 
 @NgModule({
-  declarations: [AppComponent, TourOperatorHomeDashComponent, TourOperatorBookingListingsComponent, TourOperatorCreateBookingComponent, TourOperatorPayAsYouGoComponent, StaffPortalComponent, SelectedTimedTourDetailsComponent, BookingsCalanderComponent, BookingsListingComponent, AccountDetailsComponent, BookingControlComponent, EditBookingControlComponent, CancelBookingControlComponent, PPAccountBalanceComponent, RetailerHomeDashComponent],
+  declarations: [AppComponent, TourOperatorHomeDashComponent,
+    TourOperatorBookingListingsComponent, TourOperatorCreateBookingComponent,
+    TourOperatorPayAsYouGoComponent, StaffPortalComponent, SelectedTimedTourDetailsComponent,
+    BookingsCalanderComponent, BookingsListingComponent, AccountDetailsComponent, BookingControlComponent,
+    EditBookingControlComponent, CancelBookingControlComponent, PPAccountBalanceComponent, RetailerHomeDashComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

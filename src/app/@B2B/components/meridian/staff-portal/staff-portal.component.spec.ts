@@ -8,7 +8,7 @@ describe('StaffPortalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StaffPortalComponent ]
+      declarations: [ StaffPortalComponent ],
     })
     .compileComponents();
   }));
