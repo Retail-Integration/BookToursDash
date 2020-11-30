@@ -14,6 +14,10 @@ const routes: Routes = [{
       component: SmartTableComponent,
     },
     {
+      path: 'staff',
+      component: SmartTableComponent,
+    },
+    {
       path: 'tree-grid',
       component: TreeGridComponent,
     },

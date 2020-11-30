@@ -38,18 +38,14 @@ export class SmartTableComponent {
         title: 'Last Name',
         type: 'string',
       },
-      username: {
-        title: 'Username',
+      role: {
+        title: 'Role',
         type: 'string',
       },
       email: {
         title: 'E-mail',
         type: 'string',
-      },
-      age: {
-        title: 'Age',
-        type: 'number',
-      },
+      }
     },
   };
 
