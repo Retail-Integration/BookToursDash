@@ -1,3 +1,5 @@
+import { B2BBookingServiceService } from './../../@B2B/services/b2-bbooking-service.service';
+import { BookingsListingComponent } from './../../@B2B/booking/bookings-listing/bookings-listing.component';
 import { NgModule } from '@angular/core';
 import {
   NbButtonModule,
@@ -8,6 +10,7 @@ import {
   NbIconModule,
   NbSelectModule,
   NbListModule,
+  NbAccordionModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -71,6 +74,7 @@ import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earni
     NgxEchartsModule,
     NgxChartsModule,
     LeafletModule,
+    NbAccordionModule,
   ],
   declarations: [
     ECommerceComponent,
@@ -105,9 +109,11 @@ import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earni
     EarningCardBackComponent,
     EarningPieChartComponent,
     EarningLiveUpdateChartComponent,
+    BookingsListingComponent,
   ],
   providers: [
     CountryOrdersMapService,
+    B2BBookingServiceService,
   ],
 })
 export class ECommerceModule { }

@@ -1,0 +1,36 @@
+
+{
+  "bookings" : [
+      {
+      "id": 901,
+      "bookingDate" : "03-18-2016",
+      "totalCost" : 20.00
+    },
+    {
+      "id": 902,
+      "bookingDate" : "03-18-2016",
+      "totalCost" : 20.00
+    },
+    {
+      "id": 903,
+      "bookingDate" : "03-18-2016",
+      "totalCost" : 20.00
+    },
+    {
+      "id": 904,
+      "bookingDate" : "03-18-2016",
+      "totalCost" : 20.00
+    }
+    ,      {
+      "id": 905,
+      "bookingDate" : "03-18-2016",
+      "totalCost" : 20.00
+    },
+    {
+      "id": 906,
+      "bookingDate" : "03-18-2016",
+      "totalCost" : 20.00
+    }
+  ]
+}
+

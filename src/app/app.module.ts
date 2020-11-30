@@ -29,7 +29,7 @@ import { TourOperatorPayAsYouGoComponent } from './@B2B/pages/tour-operator-pay-
 import { StaffPortalComponent } from './@B2B/pages/staff-portal/staff-portal.component';
 import { SelectedTimedTourDetailsComponent } from './@B2B/components/meridian/selected-timed-tour-details/selected-timed-tour-details.component';
 import { BookingsCalanderComponent } from './@B2B/booking/bookings-calander/bookings-calander.component';
-import { BookingsListingComponent } from './@B2B/booking/bookings-listing/bookings-listing.component';
+
 import { AccountDetailsComponent } from './@B2B/components/meridian/account-details/account-details.component';
 import { BookingControlComponent } from './@B2B/booking/booking-control/booking-control.component';
 import { EditBookingControlComponent } from './@B2B/booking/edit-booking-control/edit-booking-control.component';
@@ -41,7 +41,7 @@ import { RetailerHomeDashComponent } from './@B2B/pages/retailer-home-dash/retai
   declarations: [AppComponent, TourOperatorHomeDashComponent,
     TourOperatorBookingListingsComponent, TourOperatorCreateBookingComponent,
     TourOperatorPayAsYouGoComponent, StaffPortalComponent, SelectedTimedTourDetailsComponent,
-    BookingsCalanderComponent, BookingsListingComponent, AccountDetailsComponent, BookingControlComponent,
+    BookingsCalanderComponent, AccountDetailsComponent, BookingControlComponent,
     EditBookingControlComponent, CancelBookingControlComponent, PPAccountBalanceComponent, RetailerHomeDashComponent],
   imports: [
     BrowserModule,
