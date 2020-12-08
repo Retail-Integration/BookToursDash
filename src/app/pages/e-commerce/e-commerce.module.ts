@@ -12,6 +12,7 @@ import {
   NbSelectModule,
   NbListModule,
   NbAccordionModule,
+  NbStepperModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -82,6 +83,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     NbCardModule,
     NbUserModule,
     NbButtonModule,
+    NbStepperModule,
     NbIconModule,
     NbTabsetModule,
     NbSelectModule,

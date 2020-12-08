@@ -22,6 +22,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView,
 } from 'angular-calendar';
+import { Router } from '@angular/router';
 import { DialogComponent } from 'app/pages/modal-overlays/dialog/dialog.component';
 
 const colors: any = {
@@ -122,7 +123,8 @@ export class BookingsCalanderComponent {
 
   activeDayIsOpen: boolean = true;
 
-  constructor() { }
+  constructor(private router: Router) {
+   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -161,20 +163,8 @@ export class BookingsCalanderComponent {
   }
 
   addEvent(): void {
-    this.events = [
-      ...this.events,
-      {
-        title: 'New event',
-        start: startOfDay(new Date()),
-        end: endOfDay(new Date()),
-        color: colors.red,
-        draggable: true,
-        resizable: {
-          beforeStart: true,
-          afterEnd: true,
-        },
-      },
-    ];
+    this.router.navigate(['pages/create']);
+
   }
   deleteEvent(eventToDelete: CalendarEvent) {
     this.events = this.events.filter((event) => event !== eventToDelete);

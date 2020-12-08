@@ -1,3 +1,4 @@
+import { TourOperatorCreateBookingComponent } from './../@B2B/pages/tour-operator-create-booking/tour-operator-create-booking.component';
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
@@ -18,6 +19,10 @@ const routes: Routes = [{
     {
       path: 'bookings',
       component: TourOperatorBookingListingsComponent,
+    },
+    {
+      path: 'create',
+      component: TourOperatorCreateBookingComponent,
     },
     {
       path: 'iot-dashboard',
