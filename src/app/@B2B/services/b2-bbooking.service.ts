@@ -1,4 +1,4 @@
-import { B2BBooking } from './../models/B2BBookingModels';
+import { B2BBooking } from '../models/B2BBookingModels';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class B2BBookingServiceService {
+export class B2BBookingService {
 
   url = 'http://localhost:4200';
 

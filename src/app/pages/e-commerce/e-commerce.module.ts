@@ -1,4 +1,5 @@
-import { B2BBookingServiceService } from './../../@B2B/services/b2-bbooking-service.service';
+
+import { B2BBookingService } from '../../@B2B/services/b2-bbooking.service';
 import { BookingsListingComponent } from './../../@B2B/booking/bookings-listing/bookings-listing.component';
 import { NgModule } from '@angular/core';
 import {
@@ -58,7 +59,20 @@ import { EarningCardBackComponent } from './earning-card/back-side/earning-card-
 import { EarningPieChartComponent } from './earning-card/back-side/earning-pie-chart.component';
 import { EarningCardFrontComponent } from './earning-card/front-side/earning-card-front.component';
 import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earning-live-update-chart.component';
+import { TourOperatorHomeDashComponent } from '../../@B2B/pages/tour-operator-home-dash/tour-operator-home-dash.component';
+import { TourOperatorBookingListingsComponent } from '../../@B2B/pages/tour-operator-booking-listings/tour-operator-booking-listings.component';
+import { TourOperatorCreateBookingComponent } from '../../@B2B/pages/tour-operator-create-booking/tour-operator-create-booking.component';
+import { TourOperatorPayAsYouGoComponent } from '../../@B2B/pages/tour-operator-pay-as-you-go/tour-operator-pay-as-you-go.component';
+import { StaffPortalComponent } from '../../@B2B/pages/staff-portal/staff-portal.component';
+import { SelectedTimedTourDetailsComponent } from '../../@B2B/components/meridian/selected-timed-tour-details/selected-timed-tour-details.component';
+import { BookingsCalanderComponent } from '../../@B2B/booking/bookings-calander/bookings-calander.component';
 
+import { AccountDetailsComponent } from '../../@B2B/components/meridian/account-details/account-details.component';
+import { BookingControlComponent } from '../../@B2B/booking/booking-control/booking-control.component';
+import { EditBookingControlComponent } from '../../@B2B/booking/edit-booking-control/edit-booking-control.component';
+import { CancelBookingControlComponent } from '../../@B2B/booking/cancel-booking-control/cancel-booking-control.component';
+import { PPAccountBalanceComponent } from '../../@B2B/components/meridian/ppaccount-balance/ppaccount-balance.component';
+import { RetailerHomeDashComponent } from '../../@B2B/pages/retailer-home-dash/retailer-home-dash.component';
 @NgModule({
   imports: [
     ThemeModule,
@@ -110,10 +124,16 @@ import { EarningLiveUpdateChartComponent } from './earning-card/front-side/earni
     EarningPieChartComponent,
     EarningLiveUpdateChartComponent,
     BookingsListingComponent,
+    TourOperatorCreateBookingComponent,
+    TourOperatorHomeDashComponent,
+    TourOperatorBookingListingsComponent,
+    TourOperatorPayAsYouGoComponent, StaffPortalComponent, SelectedTimedTourDetailsComponent,
+    BookingsCalanderComponent, AccountDetailsComponent, BookingControlComponent,
+    EditBookingControlComponent, CancelBookingControlComponent, PPAccountBalanceComponent, RetailerHomeDashComponent,
   ],
   providers: [
     CountryOrdersMapService,
-    B2BBookingServiceService,
+    B2BBookingService,
   ],
 })
 export class ECommerceModule { }
