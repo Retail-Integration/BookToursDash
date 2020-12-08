@@ -24,7 +24,7 @@ export const ADMIN_ITEMS: NbMenuItem[] = [
   {
     title: 'Bookings',
     icon: 'calendar-outline',
-    link: '',
+    link: '/pages/bookings',
   },
   {
     title: 'Reports',
