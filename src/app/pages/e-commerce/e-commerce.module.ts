@@ -74,6 +74,8 @@ import { CancelBookingControlComponent } from '../../@B2B/booking/cancel-booking
 // tslint:disable-next-line: max-line-length
 import { PPAccountBalanceComponent } from '../../@B2B/components/meridian/ppaccount-balance/ppaccount-balance.component';
 import { RetailerHomeDashComponent } from '../../@B2B/pages/retailer-home-dash/retailer-home-dash.component';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 @NgModule({
   imports: [
     ThemeModule,
@@ -90,6 +92,7 @@ import { RetailerHomeDashComponent } from '../../@B2B/pages/retailer-home-dash/r
     NgxChartsModule,
     LeafletModule,
     NbAccordionModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   declarations: [
     ECommerceComponent,
