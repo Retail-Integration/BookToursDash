@@ -71,7 +71,8 @@ import { AccountDetailsComponent } from '../../@B2B/components/meridian/account-
 import { BookingControlComponent } from '../../@B2B/booking/booking-control/booking-control.component';
 import { EditBookingControlComponent } from '../../@B2B/booking/edit-booking-control/edit-booking-control.component';
 import { CancelBookingControlComponent } from '../../@B2B/booking/cancel-booking-control/cancel-booking-control.component';
-import { PPAccountBalanceComponent } from '../../@B2B/components/meridian/ppaccount-balance/ppaccount-balance.component';
+import { PPAccountBalanceComponent } from
+'../../@B2B/components/meridian/ppaccount-balance/ppaccount-balance.component';
 import { RetailerHomeDashComponent } from '../../@B2B/pages/retailer-home-dash/retailer-home-dash.component';
 @NgModule({
   imports: [
