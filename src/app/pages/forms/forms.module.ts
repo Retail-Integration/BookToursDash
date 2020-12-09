@@ -58,6 +58,6 @@ import { FormsModule as ngFormsModule } from '@angular/forms';
     NbSelectModule,
     NbIconModule,
     ngFormsModule,
-  ]
+  ],
 })
 export class FormsModule { }
