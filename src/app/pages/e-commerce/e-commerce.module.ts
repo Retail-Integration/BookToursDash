@@ -1,3 +1,4 @@
+import { FormsModule } from './../forms/forms.module';
 
 import { B2BBookingService } from '../../@B2B/services/b2-bbooking.service';
 import { BookingsListingComponent } from './../../@B2B/booking/bookings-listing/bookings-listing.component';
@@ -13,6 +14,8 @@ import {
   NbListModule,
   NbAccordionModule,
   NbStepperModule,
+  NbDatepickerModule,
+  NbLayoutModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -80,6 +83,8 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 @NgModule({
   imports: [
     ThemeModule,
+    FormsModule,
+    NbLayoutModule,
     NbCardModule,
     NbUserModule,
     NbButtonModule,
@@ -94,6 +99,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     NgxChartsModule,
     LeafletModule,
     NbAccordionModule,
+    NbDatepickerModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   declarations: [

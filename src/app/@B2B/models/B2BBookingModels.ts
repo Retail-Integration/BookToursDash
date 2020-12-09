@@ -17,3 +17,14 @@ export class Tickets {
 
    }
 }
+
+export class TicketResource {
+  description: string;
+  price: number;
+  itemCode: string;
+  quantityAdmitted: number;
+  quantitySelected: number;
+  constructor()  {
+
+   }
+}
