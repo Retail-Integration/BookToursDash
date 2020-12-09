@@ -43,7 +43,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
         price : 10.00,
         itemCode : 'STUDENT',
         quantityAdmitted : 1,
-        quantitySelected : 0
+        quantitySelected : 0,
       },
     ];
   }
