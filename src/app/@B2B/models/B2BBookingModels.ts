@@ -1,13 +1,12 @@
 export class B2BBooking {
-  id: string;
+  id: number;
   bookingDate: Date;
   totalCost: number;
-//  items: Tickets[];
+  items: Tickets[];
 }
 
 
 export class Tickets {
-  productId: number;
   description: string;
   price: number;
   itemCode: string;
@@ -27,4 +26,26 @@ export class TicketResource {
   constructor()  {
 
    }
+}
+
+export class Tour {
+  EventTypeCode: string;
+  EventCode: string;
+  EventEventDesc: string;
+  EventCapacity: number;
+  AvailableCapacity: number;
+  TourDateFormatted: string;
+  TourDate: Date;
+}
+
+export class BookingError {
+  errorNumber: number;
+  message: string;
+  userMessage: string;
+}
+
+export interface UpdateTokenResult {
+  role: string;
+  accessToken: string;
+  refreshToken: string;
 }

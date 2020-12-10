@@ -1,5 +1,6 @@
-import { TicketResource } from './../../models/B2BBookingModels';
-import { Component, OnInit } from '@angular/core';
+import { B2BBookingService } from './../../services/b2-bbooking.service';
+import { TicketResource, Tour } from './../../models/B2BBookingModels';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ngx-tour-operator-create-booking',
@@ -9,50 +10,41 @@ import { Component, OnInit } from '@angular/core';
 export class TourOperatorCreateBookingComponent implements OnInit {
   showhiderecurring: boolean;
   tickets: TicketResource[];
-  constructor(
-  ) {
-    this.tickets = this.GenerateTickets();
+  tours: Tour[];
+  selectedDates: Date[];
+
+  //Search params
+  @ViewChild('#date') date;
+  // @ViewChild('myname') input;
+  // @ViewChild('myname') input;
+  // @ViewChild('myname') input;
+  // @ViewChild('myname') input;
+
+  constructor(private b2bService :B2BBookingService) {
+    this.tickets = this.b2bService.GenerateTickets();
   }
 
+  // onSubmit(){
+  //   this.formInvalid = this.form.invalid;
+  //   if (this.formInvalid) {
+  //     return;
+  //   }
+  //   console.log('First name: ' + this.formControls.firstName.value);
+  //   this.selectedPlans = this.plans
+  //     .map((plan, i) => ({
+  //       planCode: plan.planCode,
+  //       selected: this.formControls.plans[i].checkbox.value,
+  //       divisionCode: this.formControls.plans[i].division.value
+  //     }))
+  //     .filter(x => x.selected);
+  // }
 
-  GenerateTickets(): TicketResource[] {
-   return [
-     {
-        description : 'ADULT',
-        price : 15.00,
-        itemCode : 'ADULT',
-        quantityAdmitted : 1,
-        quantitySelected : 0,
-      },
-       {
-        description : 'Family',
-        price : 40.00,
-        itemCode : 'FAMILY',
-        quantityAdmitted : 1,
-        quantitySelected : 0,
-      },
-       {
-        description : 'OAP',
-        price : 10.00,
-        itemCode : 'OAP',
-        quantityAdmitted : 1,
-        quantitySelected : 0,
-      },
-     {
-        description : 'Student',
-        price : 10.00,
-        itemCode : 'STUDENT',
-        quantityAdmitted : 1,
-        quantitySelected : 0,
-      },
-    ];
-  }
+
 
   ngOnInit(): void {
   }
 
   removeTicket($event, item) {
-
 
     if (item.quantitySelected > 0) {
       item.quantitySelected--;
@@ -64,5 +56,35 @@ export class TourOperatorCreateBookingComponent implements OnInit {
       item.quantitySelected++;
     }
   }
+
+  updateValue($event, item) {
+
+  }
+  checked = false;
+
+  toggle(checked: boolean) {
+    this.checked = checked;
+  }
+
+  onKey(event: any, ticket: TicketResource) {
+    console.log(event.target.value);
+    ticket.quantitySelected = Number.parseInt(event.target.value);
+  }
+
+  searchBookings($event) {
+    console.log(this.date);
+  }
+
+  onDateSelect(date) {
+    console.log(date);
+  }
+
+  SetSelectedWeekDates(): void {
+    let dte: Date = new Date();
+     for (let i = 1; i < 8; i++) {
+        this.selectedDates[i-1]=new Date(dte.setDate(dte.getDate() + 1));
+        }
+
+}
 
 }

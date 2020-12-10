@@ -16,6 +16,7 @@ import {
   NbStepperModule,
   NbDatepickerModule,
   NbLayoutModule,
+  NbSpinnerModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -92,6 +93,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     NbIconModule,
     NbTabsetModule,
     NbSelectModule,
+    NbSpinnerModule,
     NbListModule,
     ChartModule,
     NbProgressBarModule,
