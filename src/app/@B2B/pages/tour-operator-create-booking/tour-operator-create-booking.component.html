@@ -9,12 +9,12 @@
             <nb-card class="inline-form-card">
               <nb-card-header>Search For Tours</nb-card-header>
               <nb-card-body>
-                <form class="form-inline" style="justify-content: space-between;">
-                  <nb-select placeholder="Choose Tour" required (selectedChange)="eventSelected($event)">
+                <form class="form-inline">
+                  <nb-select #chooseEvent  placeholder="Choose Tour" required (selectedChange)="eventSelected($event)">
                     <nb-option *ngFor="let tour of tourDropdownDates" value="{{tour.EventCode}}">{{tour.EventDesc}}</nb-option>
                   </nb-select>
                     <input #date nbInput  placeholder="Select Date" [nbDatepicker]="picker" [disabled]="!selectedEvent"/>
-                    <nb-datepicker #picker required (dateChange)="onDateSelect(date)"></nb-datepicker>
+                    <nb-datepicker #picker required (dateChange)="onDateSelect($event)"></nb-datepicker>
                     <nb-select required placeholder="Select Tour" (selectedChange)="timeSelected($event)" *ngIf="selectedEvent">
                       <nb-option *ngFor="let time of selectedEvent.times" value="{{time}}">{{time}}</nb-option>
                     </nb-select>
@@ -32,7 +32,10 @@
                       <nb-option value="10">11 Weeks</nb-option>
                       <nb-option value="11">12 Weeks</nb-option>
                     </nb-select>
-                    <button nbButton (click)="searchBookings($event)"status="primary">Submit</button>
+                    <div class="btn-group" role="group" aria-label="Basic example">
+                      <button nbButton (click)="reset()"status="warning">Reset</button>
+                      <button nbButton (click)="searchBookings($event)"status="primary">Submit</button>
+                    </div>
 
                 </form>
               </nb-card-body>
@@ -68,12 +71,30 @@
               <nb-card >
                 <nb-card-header>Results</nb-card-header>
                 <nb-card-body *ngIf="tours" >
-                  <nb-list  [nbSpinner]="true" nbSpinnerStatus="control" nbSpinnerSize="large">
-                    <nb-list-item *ngFor="let ticketOption of tours">
-                      <h2>{{ticketOption.EventEventDesc}}</h2>
-                      <button status="danger">
+                  <nb-list>
+                    <nb-list-item *ngFor="let tour of tours" >
+                      <nb-alert status="success" style="width: 100%; justify-content: space-between;" *ngIf="tour.IsAvailable" >
+                        <div class="form-inline">
+                          <h6>{{tour.EventEventDesc}}</h6>
+                          <h6>{{tour.TourDate | date: 'dd/MM/yyyy HH:mm'}}</h6>
+                        <button nbButton status="danger" (click)="removeFromTourList($event,tour)">
+                          <nb-icon icon="close-outline"></nb-icon>
+                        </button>
+                        </div>
+                    </nb-alert>
+                    <nb-alert status="danger" style="width: 100%; justify-content: space-between;" *ngIf="!tour.IsAvailable">
+                      <div class="form-inline">
+                        <h6>{{tour.EventEventDesc}}</h6>
+                        <h6>{{tour.TourDate | date: 'dd/MM/yyyy HH:mm'}}</h6>
+                        <p>This Tour Doesn't have required capacity. Please choose An alternative</p>
+                    <nb-select required placeholder="Select Tour" (selectedChange)="newTourSelected($event, tour)" *ngIf="tour.AlternativeTimes">
+                      <nb-option *ngFor="let time of tour.AlternativeTimes" value="{{time}}">{{time}}</nb-option>
+                    </nb-select>
+                      <button nbButton status="danger" (click)="removeFromTourList($event,tour)" >
                         <nb-icon icon="close-outline"></nb-icon>
                       </button>
+                      </div>
+                  </nb-alert>
                     </nb-list-item>
                   </nb-list>
                 </nb-card-body>

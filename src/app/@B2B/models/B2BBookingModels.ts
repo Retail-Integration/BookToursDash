@@ -43,6 +43,8 @@ export class Tour {
   AvailableCapacity: number;
   TourDateFormatted: string;
   TourDate: Date;
+  IsAvailable: boolean;
+  AlternativeTimes: string[]
 }
 
 export class BookingError {

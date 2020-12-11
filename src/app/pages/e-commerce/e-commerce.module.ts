@@ -18,6 +18,7 @@ import {
   NbDatepickerModule,
   NbLayoutModule,
   NbSpinnerModule,
+  NbAlertModule,
 } from '@nebular/theme';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
@@ -103,6 +104,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
     LeafletModule,
     NbAccordionModule,
     NbDatepickerModule,
+    NbAlertModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
   ],
   declarations: [

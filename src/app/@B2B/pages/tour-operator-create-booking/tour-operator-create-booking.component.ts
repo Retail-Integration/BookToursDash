@@ -1,7 +1,8 @@
 import { EventService } from './../../services/event-service.service';
 import { B2BBookingService } from './../../services/b2-bbooking.service';
 import { TicketResource, Tour, TourInfo, Event } from './../../models/B2BBookingModels';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
+import { NbSelectComponent } from '@nebular/theme';
 
 @Component({
   selector: 'ngx-tour-operator-create-booking',
@@ -15,14 +16,11 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   tickets: TicketResource[] = [];
   tours: Tour[] = [];
   selectedDates: Date[] = [];
+  selectedDate: Date;
   tourDropdownDates: TourInfo[] = [];
   public selectedEvent: Event;
   // Search params
-
-  constructor(private b2bService :B2BBookingService, private eventService:EventService ) {
-    this.tourDropdownDates = b2bService.GetTourInfo();
-    this.tickets = this.b2bService.GenerateTickets();
-    ///this.tours = this.b2bService.GenerateTours()
+  constructor(private b2bService :B2BBookingService, private eventService : EventService)  {
   }
 
   // onSubmit(){
@@ -43,6 +41,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.tourDropdownDates = this.b2bService.GetTourInfo();
   }
 
   removeTicket($event, item) {
@@ -58,8 +57,11 @@ export class TourOperatorCreateBookingComponent implements OnInit {
     }
   }
 
-  updateValue($event, item) {
-
+  removeFromTourList($event, item: Tour) {
+    const index: number = this.tours.indexOf(item);
+    if (index !== -1) {
+        this.tours.splice(index, 1);
+    }
   }
 
   checked = false;
@@ -72,23 +74,43 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   }
 
   searchBookings($event) {
+ //   this.selectedDates = [];
+    if(!this.recurring)
+    {
+      this.recurring = 0;
+    }
     this.SetSelectedWeekDates(this.recurring);
-    this.tours = this.b2bService.GenerateTours(this.selectedDates, this.selectedEvent.eventDesc)
+    this.tours = this.b2bService.GenerateTours(this.selectedDates, this.selectedEvent)
   }
 
-  onDateSelect(date) {
-    console.log(date);
+  onDateSelect($event) {
+    this.selectedDate = new Date($event);
   }
   SetSelectedWeekDates(weeks: number): void {
-    let dte: Date = new Date();
-     for (let i = 1; i < weeks; i++) {
+    this.selectedDates.push(this.selectedDate);
+    let start: Date = new Date(this.selectedDate);
+     for (let i = 1; i <= weeks; i++) {
+       let dte: Date = new Date(start);
        dte = new Date(dte.setDate(dte.getDate() + 7));
-        this.selectedDates.push(dte);
+        this.selectedDates.push(new Date(dte));
+        start = new Date(dte);
         }
 }
 
   eventSelected($event) {
+    if(this.selectedEvent)
+    {
+      this.tickets = [];
+      this.tours = [];
+      this.selectedDates = [];
+    }
     this.selectedEvent = this.eventService.getEvent($event);
+  }
+
+  reset() {
+    this.selectedEvent = undefined;
+    this.tours = [];
+    this.selectedDates = [];
   }
   setRecurringFor($event) {
     this.recurring = Number.parseInt($event);
@@ -96,6 +118,10 @@ export class TourOperatorCreateBookingComponent implements OnInit {
 
   timeSelected($event) {
     this.tourTimeSelected = $event;
+  }
+
+  newTourSelected($event, tour: Tour) {
+    tour.IsAvailable =true;
   }
 
 }

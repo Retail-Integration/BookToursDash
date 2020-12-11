@@ -1,4 +1,4 @@
-import { BookingError, TicketResource, Tickets, UpdateTokenResult, Tour, TourInfo } from './../models/B2BBookingModels';
+import { BookingError, TicketResource, Tickets, UpdateTokenResult, Tour, TourInfo, Event as EventModel } from './../models/B2BBookingModels';
 import { B2BBooking } from '../models/B2BBookingModels';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -143,18 +143,27 @@ export class B2BBookingService {
     ];
   }
 
-  GenerateTours(dates: Date[], tourName: string): Tour[] {
-    const tour = new Tour();
-    tour.EventTypeCode = '001';
-    tour.EventCode = '001';
-    tour.EventEventDesc = tourName;
-    tour.EventCapacity = 20;
-    tour.AvailableCapacity = 20;
+  GenerateTours(dates: Date[], event:EventModel): Tour[] {
+
 
     let tours: Tour[] = [];
     for (let index = 0; index < dates.length; index++) {
       const element = dates[index];
-      tour.TourDate = element;
+      const tour = new Tour();
+      tour.EventTypeCode = event.eventCode;
+      tour.EventCode = event.eventCode;
+      tour.EventEventDesc = event.eventDesc;
+      tour.EventCapacity = 20;
+      tour.AvailableCapacity = 20;
+      tour.TourDate = new Date(element);
+      if(index / 2)
+      {
+        tour.IsAvailable = true
+      }
+      else {
+        tour.AlternativeTimes = event.times;
+        tour.IsAvailable = false;
+      }
       tours.push(tour);
     }
 
