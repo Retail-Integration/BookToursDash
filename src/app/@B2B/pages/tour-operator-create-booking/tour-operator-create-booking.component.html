@@ -10,34 +10,30 @@
               <nb-card-header>Search For Tours</nb-card-header>
               <nb-card-body>
                 <form class="form-inline" style="justify-content: space-between;">
-                  <nb-select selected="1" required>
-                    <nb-option value="1">Morning Tour</nb-option>
-                    <nb-option value="2">Afternoon Tour</nb-option>
+                  <nb-select placeholder="Choose Tour" required (selectedChange)="eventSelected($event)">
+                    <nb-option *ngFor="let tour of tourDropdownDates" value="{{tour.EventCode}}">{{tour.EventDesc}}</nb-option>
                   </nb-select>
-                  <input #date nbInput  placeholder="Select Date" [nbDatepicker]="picker" (ngModelChange)="onDateSelect(date)"/>
-                  <nb-datepicker #picker required ></nb-datepicker>
-                  <nb-select required placeholder="Select Tour" selected="1">
-                    <nb-option value="9am">9am</nb-option>
-                    <nb-option value="10am">10am</nb-option>
-                    <nb-option value="11am">11am</nb-option>
-                    <nb-option value="12pm">12pm</nb-option>
-                    <nb-option value="12pm">1pm</nb-option>
-                  </nb-select>
-                  <nb-checkbox (checkedChange)="toggle($event)" #recurring>Recurring</nb-checkbox>
-                  <nb-select *ngIf="checked"  placeholder="For How Long?">
-                    <nb-option value="1">2 Weeks</nb-option>
-                    <nb-option value="2">3 Weeks</nb-option>
-                    <nb-option value="3">4 Weeks</nb-option>
-                    <nb-option value="4">5 Weeks</nb-option>
-                    <nb-option value="5">6 Weeks</nb-option>
-                    <nb-option value="6">7 Weeks</nb-option>
-                    <nb-option value="7">8 Weeks</nb-option>
-                    <nb-option value="8">9 Weeks</nb-option>
-                    <nb-option value="9">10 Weeks</nb-option>
-                    <nb-option value="10">11 Weeks</nb-option>
-                    <nb-option value="11">12 Weeks</nb-option>
-                  </nb-select>
-                  <button nbButton (click)="searchBookings($event)"status="primary">Submit</button>
+                    <input #date nbInput  placeholder="Select Date" [nbDatepicker]="picker" [disabled]="!selectedEvent"/>
+                    <nb-datepicker #picker required (dateChange)="onDateSelect(date)"></nb-datepicker>
+                    <nb-select required placeholder="Select Tour" (selectedChange)="timeSelected($event)" *ngIf="selectedEvent">
+                      <nb-option *ngFor="let time of selectedEvent.times" value="{{time}}">{{time}}</nb-option>
+                    </nb-select>
+                    <nb-checkbox (checkedChange)="toggle($event)" #recurring [disabled]="!selectedEvent">Recurring</nb-checkbox>
+                    <nb-select *ngIf="checked"  placeholder="For How Long?" (selectedChange)="setRecurringFor($event)">
+                      <nb-option value="1">2 Weeks</nb-option>
+                      <nb-option value="2">3 Weeks</nb-option>
+                      <nb-option value="3">4 Weeks</nb-option>
+                      <nb-option value="4">5 Weeks</nb-option>
+                      <nb-option value="5">6 Weeks</nb-option>
+                      <nb-option value="6">7 Weeks</nb-option>
+                      <nb-option value="7">8 Weeks</nb-option>
+                      <nb-option value="8">9 Weeks</nb-option>
+                      <nb-option value="9">10 Weeks</nb-option>
+                      <nb-option value="10">11 Weeks</nb-option>
+                      <nb-option value="11">12 Weeks</nb-option>
+                    </nb-select>
+                    <button nbButton (click)="searchBookings($event)"status="primary">Submit</button>
+
                 </form>
               </nb-card-body>
             </nb-card>
@@ -48,9 +44,9 @@
           <div class="col-md-4">
               <nb-card>
                 <nb-card-header>Choose Your Tickets From Below</nb-card-header>
-                <nb-card-body>
+                <nb-card-body *ngIf="selectedEvent">
                   <nb-list>
-                    <nb-list-item *ngFor="let ticketOption of tickets">
+                    <nb-list-item *ngFor="let ticketOption of selectedEvent.tickets">
                       <div class="form-inline">
                         <button nbButton status="primary"  id="decrease{{ ticketOption.description }}" (click)="removeTicket($event, ticketOption)" class="" alt="">
                           <nb-icon icon="minus-outline"></nb-icon>
@@ -58,8 +54,10 @@
                         <input (change)="onKey($event, ticketOption)" nbInput type="number" id="count{{ ticketOption.description }}" class="ticketQuantity" value="{{ticketOption.quantitySelected}}" min="0" max="10">
                         <button nbButton status="primary"  id="increase{{ ticketOption.description }}" (click)="addTicket($event, ticketOption)" class="" alt="">
                           <nb-icon icon="plus-outline"></nb-icon></button>
+                          <span>
                         {{ ticketOption.description }}
                         {{ ticketOption.price | currency:'EUR' }}
+                        </span>
                       </div>
                     </nb-list-item>
                   </nb-list>
@@ -69,14 +67,14 @@
             <div class="col-md-8">
               <nb-card >
                 <nb-card-header>Results</nb-card-header>
-                <nb-card-body>
+                <nb-card-body *ngIf="tours" >
                   <nb-list  [nbSpinner]="true" nbSpinnerStatus="control" nbSpinnerSize="large">
-                    <!-- <nb-list-item *ngFor="let ticketOption of tours">
+                    <nb-list-item *ngFor="let ticketOption of tours">
                       <h2>{{ticketOption.EventEventDesc}}</h2>
                       <button status="danger">
                         <nb-icon icon="close-outline"></nb-icon>
                       </button>
-                    </nb-list-item> -->
+                    </nb-list-item>
                   </nb-list>
                 </nb-card-body>
                 </nb-card>

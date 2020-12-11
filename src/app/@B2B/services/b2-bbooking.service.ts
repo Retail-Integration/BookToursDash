@@ -1,4 +1,4 @@
-import { BookingError, TicketResource, Tickets, UpdateTokenResult, Tour } from './../models/B2BBookingModels';
+import { BookingError, TicketResource, Tickets, UpdateTokenResult, Tour, TourInfo } from './../models/B2BBookingModels';
 import { B2BBooking } from '../models/B2BBookingModels';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -144,30 +144,42 @@ export class B2BBookingService {
   }
 
   GenerateTours(dates: Date[], tourName: string): Tour[] {
-    let tour = new Tour();
+    const tour = new Tour();
     tour.EventTypeCode = '001';
     tour.EventCode = '001';
     tour.EventEventDesc = tourName;
     tour.EventCapacity = 20;
     tour.AvailableCapacity = 20;
 
-    let tours: Tour[];
-
+    let tours: Tour[] = [];
     for (let index = 0; index < dates.length; index++) {
       const element = dates[index];
       tour.TourDate = element;
-      tours.push(tour)
+      tours.push(tour);
     }
 
     return tours;
+  }
+
+  GetTourInfo() : TourInfo[] {
+    return [
+      {
+        EventCode : "001",
+        EventDesc : "Morning Tour"
+      },
+      {
+        EventCode : "002",
+        EventDesc : "Special Tour"
+      }
+    ];
   }
 
 
   createB2BBooking(): B2BBooking  {
     this.CurrentBooking.id = Math.floor((Math.random() * 100) + 1);
     this.CurrentBooking.totalCost = 0;
-    this.CurrentBooking.bookingDate = new Date()
-    this.CurrentBooking.items =[];
+    this.CurrentBooking.bookingDate = new Date();
+    this.CurrentBooking.items = [];
     this.storage.set('CurrentBooking', JSON.stringify(this.CurrentBooking));
     return this.CurrentBooking;
   }

@@ -1,5 +1,6 @@
+import { EventService } from './../../services/event-service.service';
 import { B2BBookingService } from './../../services/b2-bbooking.service';
-import { TicketResource, Tour } from './../../models/B2BBookingModels';
+import { TicketResource, Tour, TourInfo, Event } from './../../models/B2BBookingModels';
 import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
@@ -9,19 +10,19 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 })
 export class TourOperatorCreateBookingComponent implements OnInit {
   showhiderecurring: boolean;
-  tickets: TicketResource[];
-  tours: Tour[];
-  selectedDates: Date[];
+  recurring: number;
+  tourTimeSelected: string;
+  tickets: TicketResource[] = [];
+  tours: Tour[] = [];
+  selectedDates: Date[] = [];
+  tourDropdownDates: TourInfo[] = [];
+  public selectedEvent: Event;
+  // Search params
 
-  //Search params
-  @ViewChild('#date') date;
-  // @ViewChild('myname') input;
-  // @ViewChild('myname') input;
-  // @ViewChild('myname') input;
-  // @ViewChild('myname') input;
-
-  constructor(private b2bService :B2BBookingService) {
+  constructor(private b2bService :B2BBookingService, private eventService:EventService ) {
+    this.tourDropdownDates = b2bService.GetTourInfo();
     this.tickets = this.b2bService.GenerateTickets();
+    ///this.tours = this.b2bService.GenerateTours()
   }
 
   // onSubmit(){
@@ -60,31 +61,41 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   updateValue($event, item) {
 
   }
-  checked = false;
 
+  checked = false;
   toggle(checked: boolean) {
     this.checked = checked;
   }
 
   onKey(event: any, ticket: TicketResource) {
-    console.log(event.target.value);
-    ticket.quantitySelected = Number.parseInt(event.target.value);
+    ticket.quantitySelected = Number(event.target.value);
   }
 
   searchBookings($event) {
-    console.log(this.date);
+    this.SetSelectedWeekDates(this.recurring);
+    this.tours = this.b2bService.GenerateTours(this.selectedDates, this.selectedEvent.eventDesc)
   }
 
   onDateSelect(date) {
     console.log(date);
   }
-
-  SetSelectedWeekDates(): void {
+  SetSelectedWeekDates(weeks: number): void {
     let dte: Date = new Date();
-     for (let i = 1; i < 8; i++) {
-        this.selectedDates[i-1]=new Date(dte.setDate(dte.getDate() + 1));
+     for (let i = 1; i < weeks; i++) {
+       dte = new Date(dte.setDate(dte.getDate() + 7));
+        this.selectedDates.push(dte);
         }
-
 }
+
+  eventSelected($event) {
+    this.selectedEvent = this.eventService.getEvent($event);
+  }
+  setRecurringFor($event) {
+    this.recurring = Number.parseInt($event);
+  }
+
+  timeSelected($event) {
+    this.tourTimeSelected = $event;
+  }
 
 }

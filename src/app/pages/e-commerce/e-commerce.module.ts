@@ -1,3 +1,4 @@
+import { EventService } from './../../@B2B/services/event-service.service';
 import { FormsModule } from './../forms/forms.module';
 
 import { B2BBookingService } from '../../@B2B/services/b2-bbooking.service';
@@ -148,6 +149,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
   providers: [
     CountryOrdersMapService,
     B2BBookingService,
+    EventService
   ],
 })
 export class ECommerceModule { }

@@ -5,6 +5,13 @@ export class B2BBooking {
   items: Tickets[];
 }
 
+export class Event {
+  eventCode: string
+  eventDesc: string
+  tickets: TicketResource[]
+  times: string[]
+}
+
 
 export class Tickets {
   description: string;
@@ -48,4 +55,9 @@ export interface UpdateTokenResult {
   role: string;
   accessToken: string;
   refreshToken: string;
+}
+
+export class TourInfo {
+  EventCode: string;
+  EventDesc: string;
 }
