@@ -33,8 +33,8 @@
                       <nb-option value="11">12 Weeks</nb-option>
                     </nb-select>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                      <button nbButton (click)="reset()"status="warning">Reset</button>
-                      <button nbButton (click)="searchBookings($event)"status="primary">Submit</button>
+                      <button [disabled]="!selectedEvent" nbButton (click)="reset()"status="warning">Reset</button>
+                      <button [disabled]="!selectedEvent" nbButton (click)="searchBookings($event)"status="primary">Submit</button>
                     </div>
 
                 </form>
@@ -77,9 +77,6 @@
                         <div class="form-inline">
                           <h6>{{tour.EventEventDesc}}</h6>
                           <h6>{{tour.TourDate | date: 'dd/MM/yyyy HH:mm'}}</h6>
-                        <button nbButton status="danger" (click)="removeFromTourList($event,tour)">
-                          <nb-icon icon="close-outline"></nb-icon>
-                        </button>
                         </div>
                     </nb-alert>
                     <nb-alert status="danger" style="width: 100%; justify-content: space-between;" *ngIf="!tour.IsAvailable">
@@ -90,26 +87,54 @@
                     <nb-select required placeholder="Select Tour" (selectedChange)="newTourSelected($event, tour)" *ngIf="tour.AlternativeTimes">
                       <nb-option *ngFor="let time of tour.AlternativeTimes" value="{{time}}">{{time}}</nb-option>
                     </nb-select>
-                      <button nbButton status="danger" (click)="removeFromTourList($event,tour)" >
-                        <nb-icon icon="close-outline"></nb-icon>
-                      </button>
                       </div>
                   </nb-alert>
+                  <button nbButton status="danger" (click)="removeFromTourList($event,tour)" *ngIf="tour" >
+                    <nb-icon icon="close-outline"></nb-icon>
+                  </button>
                     </nb-list-item>
                   </nb-list>
                 </nb-card-body>
+                <button nbButton (click)="reserveTours()" nbStepperNext [disabled]="!canProceed">Next</button>
                 </nb-card>
             </div>
         </div>
-        <!-- <button nbButton disabled nbStepperNext>prev</button>
-        <button nbButton nbStepperNext>next</button> -->
+        <!-- <button nbButton disabled nbStepperNext>prev</button> -->
+
       </nb-step>
       <nb-step label="Payment">
         <ng-template #label>Payment</ng-template>
-        <h4>Payment</h4>
-        <p class="lorem">
+        <div class="col-md-12">
+          <nb-card >
+            <nb-card-header>Payment Summary</nb-card-header>
+            <nb-card-body *ngIf="Cart.bookings" >
+              <nb-list style="justify-content: space-between;">
+                <nb-list-item>
+                  <h6>Debtor Balance</h6>
+                  <h6>{{debtorBalance}}</h6>
+                </nb-list-item>
+              </nb-list>
+              <nb-accordion>
+                <nb-accordion-item *ngFor="let booking of Cart.bookings" >
+                  <nb-accordion-item-header>
+                    {{booking.bookingDate}}
+                    {{Cart.event.eventDesc}}
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <nb-list style="justify-content: space-between;">
+                      <nb-list-item *ngFor="let ticket of booking.items">
+                        <h6>{{ticket.description}}</h6>
+                        <h6>{{ticket.subtotal}}</h6>
+                      </nb-list-item>
+                    </nb-list>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+                </nb-accordion>
 
-        </p>
+                <h6>{{Cart.total}}</h6>
+            </nb-card-body>
+            </nb-card>
+            </div>
         <button nbButton nbStepperPrevious>prev</button>
         <button nbButton nbStepperNext>next</button>
       </nb-step>

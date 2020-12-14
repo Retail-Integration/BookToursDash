@@ -1,3 +1,4 @@
+
 export class B2BBooking {
   id: number;
   bookingDate: Date;
@@ -20,6 +21,7 @@ export class Tickets {
   itemCode: string;
   quantityAdmitted: number;
   quantitySelected: number;
+  subtotal: number
   constructor()  {
 
    }
@@ -53,3 +55,16 @@ export class TourInfo {
   EventCode: string;
   EventDesc: string;
 }
+
+export class Cart {
+  event: Event;
+  bookings: B2BBooking[];
+  total: number;
+
+
+  constructor() {
+    this.bookings = [];
+    this.total = 0;
+  }
+}
+

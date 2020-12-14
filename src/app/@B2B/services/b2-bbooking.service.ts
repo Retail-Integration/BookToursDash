@@ -34,6 +34,7 @@ export class B2BBookingService {
                   itemCode : 'ADULT',
                   quantityAdmitted : 1,
                   quantitySelected : 0,
+                  subtotal: 0,
                 },
                 {
                   description : 'Family',
@@ -41,6 +42,7 @@ export class B2BBookingService {
                   itemCode : 'FAMILY',
                   quantityAdmitted : 4,
                   quantitySelected : 0,
+                  subtotal: 0,
                 }],
       },
       {
@@ -54,6 +56,7 @@ export class B2BBookingService {
                   itemCode : 'ADULT',
                   quantityAdmitted : 1,
                   quantitySelected : 0,
+                  subtotal: 0,
                 },
                 {
                   description : 'Family',
@@ -61,6 +64,7 @@ export class B2BBookingService {
                   itemCode : 'FAMILY',
                   quantityAdmitted : 4,
                   quantitySelected : 0,
+                  subtotal: 0,
                 }],
       },
       {
@@ -74,6 +78,7 @@ export class B2BBookingService {
                   itemCode : 'ADULT',
                   quantityAdmitted : 1,
                   quantitySelected : 0,
+                  subtotal: 0,
                 },
                 {
                   description : 'Family',
@@ -81,6 +86,7 @@ export class B2BBookingService {
                   itemCode : 'FAMILY',
                   quantityAdmitted : 4,
                   quantitySelected : 0,
+                  subtotal: 0,
                 }],
       },
 
@@ -95,6 +101,7 @@ export class B2BBookingService {
          itemCode : 'ADULT',
          quantityAdmitted : 1,
          quantitySelected : 0,
+         subtotal: 0,
        },
         {
          description : 'Family',
@@ -102,6 +109,7 @@ export class B2BBookingService {
          itemCode : 'FAMILY',
          quantityAdmitted : 4,
          quantitySelected : 0,
+         subtotal: 0,
        },
         {
          description : 'OAP',
@@ -109,6 +117,7 @@ export class B2BBookingService {
          itemCode : 'OAP',
          quantityAdmitted : 1,
          quantitySelected : 0,
+         subtotal: 0,
        },
       {
          description : 'Student',
@@ -116,6 +125,7 @@ export class B2BBookingService {
          itemCode : 'STUDENT',
          quantityAdmitted : 1,
          quantitySelected : 0,
+         subtotal: 0,
        },
      ];
   }
@@ -128,6 +138,7 @@ export class B2BBookingService {
         itemCode : 'ADULT',
         quantityAdmitted : 1,
         quantitySelected : 0,
+        subtotal: 0,
       },
       {
         description : 'Family SPECIAL RATE',
@@ -135,6 +146,7 @@ export class B2BBookingService {
         itemCode : 'FAMILY',
         quantityAdmitted : 4,
         quantitySelected : 0,
+        subtotal: 0,
       },
       {
         description : 'Children SPECIAL RATE',
@@ -142,6 +154,7 @@ export class B2BBookingService {
         itemCode : 'OAP',
         quantityAdmitted : 1,
         quantitySelected : 0,
+        subtotal: 0,
       },
     ];
   }
@@ -199,6 +212,10 @@ export class B2BBookingService {
     this.storage.set('CurrentBooking', JSON.stringify(this.CurrentBooking));
     return true;
   }
+
+    saveBooking(booking :B2BBooking) : void {
+      this.storage.set('CurrentBooking', JSON.stringify(booking));
+    }
 
   // postPayment(payment: PaymentResource): Observable<boolean | BookingError> {
   //   const api = this.api + BookingApiEndpoints.Payment;

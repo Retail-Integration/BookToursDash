@@ -32,11 +32,6 @@ export const ADMIN_ITEMS: NbMenuItem[] = [
     link: '',
   },
   {
-    title: 'Retailers',
-    icon: 'folder-outline',
-    link: '',
-  },
-  {
     title: 'Staff',
     icon: 'people-outline',
     link: '/pages/tables/staff',
