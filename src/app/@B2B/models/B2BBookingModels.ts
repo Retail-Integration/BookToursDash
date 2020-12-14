@@ -2,29 +2,19 @@ export class B2BBooking {
   id: number;
   bookingDate: Date;
   totalCost: number;
+  tour: Tour;
   items: Tickets[];
 }
 
 export class Event {
   eventCode: string;
   eventDesc: string;
-  tickets: TicketResource[];
+  tickets: Tickets[];
   times: string[];
 }
 
 
 export class Tickets {
-  description: string;
-  price: number;
-  itemCode: string;
-  quantityAdmitted: number;
-  quantitySelected: number;
-  constructor()  {
-
-   }
-}
-
-export class TicketResource {
   description: string;
   price: number;
   itemCode: string;

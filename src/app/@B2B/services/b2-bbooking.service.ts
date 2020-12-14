@@ -1,4 +1,4 @@
-import { BookingError, TicketResource, Tickets, UpdateTokenResult, Tour, TourInfo, Event as EventModel } from './../models/B2BBookingModels';
+import { BookingError, Tickets, UpdateTokenResult, Tour, TourInfo, Event as EventModel } from './../models/B2BBookingModels';
 import { B2BBooking } from '../models/B2BBookingModels';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -27,6 +27,7 @@ export class B2BBookingService {
         id: 123,
         bookingDate: new Date(),
         totalCost: 100,
+        tour: new Tour(),
         items:  [{
                   description : 'ADULT',
                   price : 15.00,
@@ -46,6 +47,7 @@ export class B2BBookingService {
         id: 124,
         bookingDate: new Date(),
         totalCost: 100,
+        tour: new Tour(),
         items:  [{
                   description : 'ADULT',
                   price : 15.00,
@@ -65,6 +67,7 @@ export class B2BBookingService {
         id: 125,
         bookingDate: new Date(),
         totalCost: 100,
+        tour: new Tour(),
         items:  [{
                   description : 'ADULT',
                   price : 15.00,
@@ -84,7 +87,7 @@ export class B2BBookingService {
     ]);
   }
 
-  GenerateTickets(): TicketResource[] {
+  GenerateTickets(): Tickets[] {
     return [
       {
          description : 'ADULT',
@@ -117,7 +120,7 @@ export class B2BBookingService {
      ];
   }
 
-  GenerateSpecialTickets(): TicketResource[] {
+  GenerateSpecialTickets(): Tickets[] {
   return [
     {
         description : 'ADULT SPECIAL RATE',

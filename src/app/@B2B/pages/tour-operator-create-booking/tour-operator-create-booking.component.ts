@@ -1,6 +1,6 @@
 import { EventService } from './../../services/event-service.service';
 import { B2BBookingService } from './../../services/b2-bbooking.service';
-import { TicketResource, Tour, TourInfo, Event } from './../../models/B2BBookingModels';
+import { Tickets, Tour, TourInfo, Event } from './../../models/B2BBookingModels';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { NbSelectComponent } from '@nebular/theme';
 
@@ -13,7 +13,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   showhiderecurring: boolean;
   recurring: number;
   tourTimeSelected: string;
-  tickets: TicketResource[] = [];
+  tickets: Tickets[] = [];
   tours: Tour[] = [];
   selectedDates: Date[] = [];
   selectedDate: Date;
@@ -63,7 +63,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
         this.tours.splice(index, 1);
     }
   }
-  onKey(event: any, ticket: TicketResource) {
+  onKey(event: any, ticket: Tickets) {
     ticket.quantitySelected = Number(event.target.value);
   }
 
