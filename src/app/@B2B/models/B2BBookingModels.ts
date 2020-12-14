@@ -6,10 +6,10 @@ export class B2BBooking {
 }
 
 export class Event {
-  eventCode: string
-  eventDesc: string
-  tickets: TicketResource[]
-  times: string[]
+  eventCode: string;
+  eventDesc: string;
+  tickets: TicketResource[];
+  times: string[];
 }
 
 
@@ -44,7 +44,7 @@ export class Tour {
   TourDateFormatted: string;
   TourDate: Date;
   IsAvailable: boolean;
-  AlternativeTimes: string[]
+  AlternativeTimes: string[];
 }
 
 export class BookingError {

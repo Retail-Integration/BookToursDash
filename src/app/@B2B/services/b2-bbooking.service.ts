@@ -143,10 +143,8 @@ export class B2BBookingService {
     ];
   }
 
-  GenerateTours(dates: Date[], event:EventModel): Tour[] {
-
-
-    let tours: Tour[] = [];
+  GenerateTours(dates: Date[], event: EventModel): Tour[] {
+    const tours: Tour[] = [];
     for (let index = 0; index < dates.length; index++) {
       const element = dates[index];
       const tour = new Tour();
@@ -156,11 +154,9 @@ export class B2BBookingService {
       tour.EventCapacity = 20;
       tour.AvailableCapacity = 20;
       tour.TourDate = new Date(element);
-      if(index / 2)
-      {
-        tour.IsAvailable = true
-      }
-      else {
+      if (index / 2) {
+        tour.IsAvailable = true;
+      } else {
         tour.AlternativeTimes = event.times;
         tour.IsAvailable = false;
       }
@@ -170,16 +166,16 @@ export class B2BBookingService {
     return tours;
   }
 
-  GetTourInfo() : TourInfo[] {
+  GetTourInfo(): TourInfo[] {
     return [
       {
-        EventCode : "001",
-        EventDesc : "Morning Tour"
+        EventCode : '001',
+        EventDesc : 'Morning Tour',
       },
       {
-        EventCode : "002",
-        EventDesc : "Special Tour"
-      }
+        EventCode : '002',
+        EventDesc : 'Special Tour',
+      },
     ];
   }
 
@@ -217,6 +213,4 @@ export class B2BBookingService {
     dataError.userMessage = 'An Error Occured';
     return throwError(dataError);
   }
-
-
 }

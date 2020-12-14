@@ -20,7 +20,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   tourDropdownDates: TourInfo[] = [];
   public selectedEvent: Event;
   // Search params
-  constructor(private b2bService :B2BBookingService, private eventService : EventService)  {
+  constructor(private b2bService: B2BBookingService, private eventService: EventService)  {
   }
 
   // onSubmit(){
@@ -63,24 +63,24 @@ export class TourOperatorCreateBookingComponent implements OnInit {
         this.tours.splice(index, 1);
     }
   }
+  onKey(event: any, ticket: TicketResource) {
+    ticket.quantitySelected = Number(event.target.value);
+  }
+
 
   checked = false;
   toggle(checked: boolean) {
     this.checked = checked;
   }
 
-  onKey(event: any, ticket: TicketResource) {
-    ticket.quantitySelected = Number(event.target.value);
-  }
 
   searchBookings($event) {
- //   this.selectedDates = [];
-    if(!this.recurring)
-    {
+  const anyTickets = this.tickets.find(x => x.quantitySelected > 0);
+    if (!this.recurring) {
       this.recurring = 0;
     }
     this.SetSelectedWeekDates(this.recurring);
-    this.tours = this.b2bService.GenerateTours(this.selectedDates, this.selectedEvent)
+    this.tours = this.b2bService.GenerateTours(this.selectedDates, this.selectedEvent);
   }
 
   onDateSelect($event) {
@@ -98,8 +98,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
 }
 
   eventSelected($event) {
-    if(this.selectedEvent)
-    {
+    if (this.selectedEvent) {
       this.tickets = [];
       this.tours = [];
       this.selectedDates = [];
@@ -109,11 +108,13 @@ export class TourOperatorCreateBookingComponent implements OnInit {
 
   reset() {
     this.selectedEvent = undefined;
+    this.selectedDate = undefined;
+    this.recurring = undefined;
     this.tours = [];
     this.selectedDates = [];
   }
   setRecurringFor($event) {
-    this.recurring = Number.parseInt($event);
+    this.recurring = Number($event);
   }
 
   timeSelected($event) {
@@ -121,7 +122,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   }
 
   newTourSelected($event, tour: Tour) {
-    tour.IsAvailable =true;
+    tour.IsAvailable = true;
   }
 
 }

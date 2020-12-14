@@ -3,7 +3,7 @@ import { B2BBookingService } from './b2-bbooking.service';
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class EventService {
 
@@ -15,11 +15,9 @@ export class EventService {
    getEvent(eventCode: string): Event {
     for (let index = 0; index < this.events.length; index++) {
       const element = this.events[index];
-      if(element.eventCode == eventCode)
-      {
+      if (element.eventCode === eventCode) {
         return element as Event;
       }
-
     }
    }
 
@@ -29,26 +27,22 @@ export class EventService {
               eventCode: '001',
               eventDesc: 'Morning Tour',
               tickets: this.booking.GenerateTickets(),
-              times: this.morningTimes()
+              times: this.morningTimes(),
             },
             {
               eventCode: '002',
               eventDesc: 'Special Tour',
               tickets: this.booking.GenerateSpecialTickets(),
-              times: this.afternoonTimes()
-            }
+              times: this.afternoonTimes(),
+            },
      ];
   }
 
   morningTimes(): string[] {
-    return [
-      '9am','10am','11am', '12pm'
-    ];
+    return ['9am', '10am', '11am', '12pm'];
   }
   afternoonTimes(): string[] {
-    return [
-      '1pm','2pm','3pm','4pm'
-    ];
+    return ['1pm', '2pm', '3pm', '4pm'];
   }
 
 }

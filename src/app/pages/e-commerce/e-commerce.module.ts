@@ -151,7 +151,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
   providers: [
     CountryOrdersMapService,
     B2BBookingService,
-    EventService
+    EventService,
   ],
 })
 export class ECommerceModule { }
