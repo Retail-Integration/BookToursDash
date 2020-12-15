@@ -69,9 +69,6 @@ export class TourOperatorCreateBookingComponent implements OnInit {
         this.Cart.Bookings.push(booking);
         this.Cart.Total += element.subtotal;
       }
-
-      this.storage.set('Cart', JSON.stringify(this.Cart));
-      this.storage.set('Tours', JSON.stringify(this.tours));
     }
 
 
@@ -81,14 +78,10 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   ngOnInit(): void {
     this.tourDropdownDates = this.b2bService.GetTourInfo();
     // add check againsts storage here
-    if (this.storage.get('Cart') == null) {
       this.Cart = new Cart();
       this.Cart.Bookings = [];
       this.Cart.Total = 0;
-    } else {
-      this.Cart = JSON.parse(this.storage.get('Cart'));
-      this.tours = JSON.parse(this.storage.get('Tours'));
-    }
+
   }
 
   removeTicket($event, item) {
