@@ -2,37 +2,13 @@
 <nb-card>
   <nb-card-header>Upcoming Bookings</nb-card-header>
   <nb-card-body>
-    <nb-accordion>
-      <nb-accordion-item #item>
+    <nb-accordion >
+      <nb-accordion-item #item *ngFor="let tour of tours">
         <nb-accordion-item-header>
-          Sample Booking One
+          Test {{tour.AlternativeTimes}}
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
-          Originally, nebula was a name for any diffuse astronomical object,
-          including galaxies beyond the Milky Way.
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-      <nb-accordion-item>
-        <nb-accordion-item-header>
-          Sample Booking Twp
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
-          Originally, nebula was a name for any diffuse astronomical object,
-          including galaxies beyond the Milky Way.
-        </nb-accordion-item-body>
-      </nb-accordion-item>
-
-      <nb-accordion-item>
-        <nb-accordion-item-header>
-          Sample Booking Three
-        </nb-accordion-item-header>
-        <nb-accordion-item-body>
-          A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases.
-          Originally, nebula was a name for any diffuse astronomical object,
-          including galaxies beyond the Milky Way.
+         Test {{tour.EventCapacity}}
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>
