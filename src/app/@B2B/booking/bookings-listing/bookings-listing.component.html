@@ -5,10 +5,16 @@
     <nb-accordion >
       <nb-accordion-item #item *ngFor="let tour of tours">
         <nb-accordion-item-header>
-          Test {{tour.AlternativeTimes}}
+          {{tour.EventCode}} {{tour.EventEventDesc}}
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-         Test {{tour.EventCapacity}}
+         <p>Event Capacity: {{tour.EventCapacity}} </p>
+         <p>Availble Capacity: {{tour.AvailableCapacity}} </p>
+         <p>Tour Date: {{tour.TourDateFormatted}} </p>
+         <p>Available: {{tour.IsAvailable}}</p>
+         <p>Alternative Times: {{tour.AlternativeTimes}} </p>
+
+
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>

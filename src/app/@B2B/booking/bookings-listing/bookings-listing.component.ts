@@ -17,17 +17,28 @@ export class BookingsListingComponent implements OnInit {
 
     this.tours = [
       {
-        EventTypeCode: "001",
-        EventCode: "001",
-        EventEventDesc: "General Admission",
-        AvailableCapacity: 100,
-        EventCapacity: 0,
-        TourDateFormatted: "1/01/21",
+        EventTypeCode: '001',
+        EventCode: '001',
+        EventEventDesc: 'General Admission',
+        AvailableCapacity: 0,
+        EventCapacity: 100,
+        TourDateFormatted: '01/01/21',
         TourDate : new Date(2021, 1, 1),
+        IsAvailable: false,
+        AlternativeTimes : ['15.00', '18.00'],
+      },
+      {
+        EventTypeCode: '002',
+        EventCode: '002',
+        EventEventDesc: 'Timed Tour',
+        AvailableCapacity: 90,
+        EventCapacity: 10,
+        TourDateFormatted: '02/01/21',
+        TourDate : new Date(2021, 1, 2),
         IsAvailable: true,
-        AlternativeTimes : ["test"]
-      }
-    ]
+        AlternativeTimes : ['13.00', '16.00'],
+      },
+    ];
    }
 
   ngOnInit(): void {
@@ -47,6 +58,6 @@ export class BookingsListingComponent implements OnInit {
 
 
   //         return this.tours;
-  //}
+  // }
 
 }
