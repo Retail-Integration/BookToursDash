@@ -11,13 +11,13 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BookingsListingComponent implements OnInit {
 
-  loggedIn: string ='';
+  loggedIn: string = '';
   bookings: B2BBooking[];
   constructor(private booking: B2BBookingService, private storage: StorageService) {
     this.loggedIn = storage.getSession('User');
     booking.getAllBookings()
     .subscribe(
-      (result: B2BBooking[]) => this.bookings = result.sort(x => x.tour.TourDate.getDate())
+      (result: B2BBooking[]) => this.bookings = result.sort(x => x.tour.TourDate.getDate()),
     );
 
    }

@@ -102,7 +102,7 @@ export class B2BBookingService {
                   itemCode : 'FAMILY',
                   quantityAdmitted : 4,
                   quantitySelected : 10,
-                  subtotal: 400.00
+                  subtotal: 400.00,
                 }],
       },
       {

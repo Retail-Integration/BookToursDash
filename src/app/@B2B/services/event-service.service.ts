@@ -35,7 +35,7 @@ export class EventService {
               eventDesc: 'Special Tour',
               tickets: this.GenerateSpecialTickets(),
               times: this.afternoonTimes(),
-              selectedTime: ''
+              selectedTime: '',
             },
      ];
   }
@@ -55,7 +55,7 @@ export class EventService {
              eventDesc: 'Special Tour',
              tickets: this.GenerateSpecialTickets(),
              times: this.afternoonTimes(),
-             selectedTime: '4pm'
+             selectedTime: '4pm',
            },
     ];
   }
@@ -70,7 +70,7 @@ export class EventService {
         AvailableCapacity: 50,
         EventCapacity: 100,
         TourDateFormatted: '01/04/21',
-        TourDate : new Date(2021, 4, 1, 10, 0 ,0),
+        TourDate : new Date(2021, 4, 1, 10, 0 , 0),
         IsAvailable: false,
         AlternativeTimes : ['15.00', '18.00'],
       },
@@ -81,7 +81,7 @@ export class EventService {
         AvailableCapacity: 50,
         EventCapacity: 100,
         TourDateFormatted: '08/04/21',
-        TourDate : new Date(2021, 4, 8, 10, 0 ,0),
+        TourDate : new Date(2021, 4, 8, 10, 0 , 0),
         IsAvailable: false,
         AlternativeTimes : ['15.00', '18.00'],
       },
@@ -92,7 +92,7 @@ export class EventService {
         AvailableCapacity: 50,
         EventCapacity: 100,
         TourDateFormatted: '15/04/21',
-        TourDate : new Date(2021, 4, 15, 10, 0 ,0),
+        TourDate : new Date(2021, 4, 15, 10, 0 , 0),
         IsAvailable: false,
         AlternativeTimes : ['15.00', '18.00'],
       },
@@ -104,7 +104,7 @@ export class EventService {
         AvailableCapacity: 0,
         EventCapacity: 100,
         TourDateFormatted: '02/01/21',
-        TourDate : new Date(2021, 3, 16, 16, 0 ,0),
+        TourDate : new Date(2021, 3, 16, 16, 0 , 0),
         IsAvailable: true,
         AlternativeTimes : ['13.00', '16.00'],
       },
@@ -115,7 +115,7 @@ export class EventService {
         AvailableCapacity: 0,
         EventCapacity: 100,
         TourDateFormatted: '02/01/21',
-        TourDate : new Date(2021, 3, 23, 16, 0 ,0),
+        TourDate : new Date(2021, 3, 23, 16, 0 , 0),
         IsAvailable: true,
         AlternativeTimes : ['13.00', '16.00'],
       },
@@ -126,7 +126,7 @@ export class EventService {
         AvailableCapacity: 0,
         EventCapacity: 100,
         TourDateFormatted: '02/01/21',
-        TourDate :new Date(2021, 3, 30, 16, 0 ,0),
+        TourDate : new Date(2021, 3, 30, 16, 0 , 0),
         IsAvailable: true,
         AlternativeTimes : ['13.00', '16.00'],
       },
