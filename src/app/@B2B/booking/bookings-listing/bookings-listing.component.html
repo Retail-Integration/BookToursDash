@@ -3,18 +3,35 @@
   <nb-card-header>Upcoming Bookings</nb-card-header>
   <nb-card-body>
     <nb-accordion >
-      <nb-accordion-item #item *ngFor="let tour of tours">
+      <nb-accordion-item #item *ngFor="let booking of bookings">
         <nb-accordion-item-header>
-          {{tour.EventCode}} {{tour.EventEventDesc}}
+            <h6>#{{booking.id}} </h6>&nbsp;
+            <h6> {{booking.tour.TourDate | date:'medium'}}     </h6>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
-         <p>Event Capacity: {{tour.EventCapacity}} </p>
-         <p>Availble Capacity: {{tour.AvailableCapacity}} </p>
-         <p>Tour Date: {{tour.TourDateFormatted}} </p>
-         <p>Available: {{tour.IsAvailable}}</p>
-         <p>Alternative Times: {{tour.AlternativeTimes}} </p>
-
-
+          <div class="row">
+          <div class="col-md-6">
+            <ul>
+              <li>
+                Date Booked: {{booking.bookingDate | date:'medium'}}
+              </li>
+              <li>Booked By: {{booking.bookedBy}}</li>
+              <li *ngFor="let item of booking.items">
+                {{item.description}} X {{item.quantitySelected}} : {{item.subtotal  | currency:'EUR' }}
+              </li>
+              <li>
+                Subtotal: {{booking.totalCost | currency:'EUR' }}
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-6">
+            <nb-progress-bar [value]="booking.tour.AvailableCapacity / booking.tour.EventCapacity * 100 " status="primary" ></nb-progress-bar>
+            <h6>{{booking.tour.AvailableCapacity}} Ticket(s) Spots remaining on this tour</h6>
+            <button nbButton status='primary'>Edit</button>
+            <button nbButton status='danger'>Cancel</button>
+            <button nbButton status='success'>Info</button>
+          </div>
+        </div>
         </nb-accordion-item-body>
       </nb-accordion-item>
     </nb-accordion>

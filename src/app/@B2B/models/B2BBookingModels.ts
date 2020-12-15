@@ -1,9 +1,12 @@
 
+
 export class B2BBooking {
   id: number;
+  bookedBy: string = '';
   bookingDate: Date;
   totalCost: number = 0;
   tour: Tour;
+  Event: Event;
   items: Tickets[];
 }
 
@@ -12,6 +15,7 @@ export class Event {
   eventDesc: string;
   tickets: Tickets[];
   times: string[];
+  selectedTime: string = '';
 }
 
 
