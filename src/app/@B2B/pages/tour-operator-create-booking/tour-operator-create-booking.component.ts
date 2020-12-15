@@ -1,6 +1,7 @@
+import { StorageService } from './../../services/storage.service';
 import { EventService } from './../../services/event-service.service';
 import { B2BBookingService } from './../../services/b2-bbooking.service';
-import { Tickets, Tour, TourInfo, Event } from './../../models/B2BBookingModels';
+import { Tickets, Tour, TourInfo, Event, B2BBooking, Cart } from './../../models/B2BBookingModels';
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { NbSelectComponent } from '@nebular/theme';
 
@@ -18,9 +19,16 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   selectedDates: Date[] = [];
   selectedDate: Date;
   tourDropdownDates: TourInfo[] = [];
+  activeBooking: B2BBooking;
+  canProceed: boolean;
+  Cart: Cart;
   public selectedEvent: Event;
+  debtorBalance: number = 10000;
   // Search params
-  constructor(private b2bService: B2BBookingService, private eventService: EventService)  {
+  constructor(private b2bService: B2BBookingService,
+    private eventService: EventService,
+    private storage: StorageService)  {
+
   }
 
   // onSubmit(){
@@ -38,23 +46,50 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   //     .filter(x => x.selected);
   // }
 
+  reserveTours(): void {
 
+    if (this.Cart.Bookings) {
+      this.Cart.Bookings = [];
+      this.Cart.Total = 0;
+      this.Cart.Event = this.selectedEvent;
+    }
+    const selectedTickets = [this.selectedEvent.tickets.find(x => x.quantitySelected > 0)];
+
+    for (let index = 0; index < this.tours.length; index++) {
+      const booking = new B2BBooking();
+      booking.items = [];
+      const tour = this.tours[index];
+
+      booking.bookingDate = tour.TourDate;
+      for (let ticketIndex = 0; ticketIndex < selectedTickets.length; ticketIndex++) {
+        const element = selectedTickets[ticketIndex];
+        element.subtotal = element.price * element.quantitySelected;
+        booking.items.push(element);
+        booking.totalCost += element.subtotal;
+        this.Cart.Bookings.push(booking);
+        this.Cart.Total += element.subtotal;
+      }
+    }
+
+
+
+  }
 
   ngOnInit(): void {
     this.tourDropdownDates = this.b2bService.GetTourInfo();
+    // add check againsts storage here
+      this.Cart = new Cart();
+      this.Cart.Bookings = [];
+      this.Cart.Total = 0;
+
   }
 
   removeTicket($event, item) {
-
-    if (item.quantitySelected > 0) {
       item.quantitySelected--;
-    }
   }
 
   addTicket($event, item) {
-    if (item.quantitySelected < 10) {
       item.quantitySelected++;
-    }
   }
 
   removeFromTourList($event, item: Tour) {
@@ -62,6 +97,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
     if (index !== -1) {
         this.tours.splice(index, 1);
     }
+    this.checkCanProceed();
   }
   onKey(event: any, ticket: Tickets) {
     ticket.quantitySelected = Number(event.target.value);
@@ -80,7 +116,11 @@ export class TourOperatorCreateBookingComponent implements OnInit {
       this.recurring = 0;
     }
     this.SetSelectedWeekDates(this.recurring);
+
+    this.activeBooking = this.b2bService.createB2BBooking();
     this.tours = this.b2bService.GenerateTours(this.selectedDates, this.selectedEvent);
+    this.checkCanProceed();
+
   }
 
   onDateSelect($event) {
@@ -121,8 +161,16 @@ export class TourOperatorCreateBookingComponent implements OnInit {
     this.tourTimeSelected = $event;
   }
 
+  checkCanProceed() {
+    const inValidTours = this.tours.find(x => x.IsAvailable === false);
+    if (!inValidTours) {
+      this.canProceed = true;
+    }
+  }
+
   newTourSelected($event, tour: Tour) {
     tour.IsAvailable = true;
+    this.checkCanProceed();
   }
 
 }

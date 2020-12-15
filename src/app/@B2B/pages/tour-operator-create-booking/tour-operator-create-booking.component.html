@@ -33,8 +33,8 @@
                       <nb-option value="11">12 Weeks</nb-option>
                     </nb-select>
                     <div class="btn-group" role="group" aria-label="Basic example">
-                      <button nbButton (click)="reset()"status="warning">Reset</button>
-                      <button nbButton (click)="searchBookings($event)"status="primary">Submit</button>
+                      <button [disabled]="!selectedEvent" nbButton (click)="reset()"status="warning">Reset</button>
+                      <button [disabled]="!selectedEvent" nbButton (click)="searchBookings($event)"status="primary">Submit</button>
                     </div>
 
                 </form>
@@ -77,9 +77,6 @@
                         <div class="form-inline">
                           <h6>{{tour.EventEventDesc}}</h6>
                           <h6>{{tour.TourDate | date: 'dd/MM/yyyy HH:mm'}}</h6>
-                        <button nbButton status="danger" (click)="removeFromTourList($event,tour)">
-                          <nb-icon icon="close-outline"></nb-icon>
-                        </button>
                         </div>
                     </nb-alert>
                     <nb-alert status="danger" style="width: 100%; justify-content: space-between;" *ngIf="!tour.IsAvailable">
@@ -90,36 +87,81 @@
                     <nb-select required placeholder="Select Tour" (selectedChange)="newTourSelected($event, tour)" *ngIf="tour.AlternativeTimes">
                       <nb-option *ngFor="let time of tour.AlternativeTimes" value="{{time}}">{{time}}</nb-option>
                     </nb-select>
-                      <button nbButton status="danger" (click)="removeFromTourList($event,tour)" >
-                        <nb-icon icon="close-outline"></nb-icon>
-                      </button>
                       </div>
                   </nb-alert>
+                  <button nbButton status="danger" (click)="removeFromTourList($event,tour)" *ngIf="tour" >
+                    <nb-icon icon="close-outline"></nb-icon>
+                  </button>
                     </nb-list-item>
                   </nb-list>
                 </nb-card-body>
+                <button nbButton (click)="reserveTours()" nbStepperNext [disabled]="!canProceed">Next</button>
                 </nb-card>
             </div>
         </div>
-        <!-- <button nbButton disabled nbStepperNext>prev</button>
-        <button nbButton nbStepperNext>next</button> -->
+        <!-- <button nbButton disabled nbStepperNext>prev</button> -->
+
       </nb-step>
       <nb-step label="Payment">
         <ng-template #label>Payment</ng-template>
-        <h4>Payment</h4>
-        <p class="lorem">
+        <div class="col-md-12">
+          <nb-card >
+            <nb-card-header>Payment Summary</nb-card-header>
+            <nb-card-body *ngIf="Cart.Bookings" >
+              <nb-accordion>
+                <nb-accordion-item *ngFor="let booking of Cart.Bookings" >
+                  <nb-accordion-item-header style="justify-content: center;">
+                    {{booking.bookingDate | date:'medium' }}
+                    {{Cart.Event.eventDesc}}
+                    {{booking.totalCost | currency:'EUR'}}
+                  </nb-accordion-item-header>
+                  <nb-accordion-item-body>
+                    <nb-list style="justify-content: space-between;">
+                      <nb-list-item *ngFor="let ticket of booking.items" style="justify-content: space-between;">
+                        <h6>{{ticket.description}} X {{ticket.quantitySelected}} </h6>
+                        <h6>{{ticket.subtotal | currency:'EUR'}}</h6>
+                      </nb-list-item>
+                      <nb-list-item style="justify-content: space-between;">
+                        <h6>Total: </h6>
+                        <h6>{{booking.totalCost | currency:'EUR'}}</h6>
+                      </nb-list-item>
+                    </nb-list>
+                  </nb-accordion-item-body>
+                </nb-accordion-item>
+                </nb-accordion>
+                <nb-alert outline="success" style="width: 100%; justify-content: space-between;" *ngIf="Cart.Total <= debtorBalance" >
+                  <div class="form-inline">
+                    <h6>This Transaction has been successfully authorized</h6>
+                    <h6>Total: </h6>
+                    <h6>{{Cart.Total | currency:'EUR'}}</h6>
+                    <button nbButton nbStepperPrevious>Previous Step</button>
+                    <button nbButton nbStepperNext>Confirm Order</button>
+                  </div>
+          </nb-alert>
+          <nb-alert status="danger" style="width: 100%; justify-content: space-between;" *ngIf="Cart.Total > debtorBalance">
+            <div class="form-inline">
+                    <h6>This Transaction can not be authorized</h6>
+                    <h6>Total: </h6>
+                    <h6>{{Cart.Total | currency:'EUR'}}</h6>
+                    <button nbButton nbStepperPrevious>prev</button>
+                    <button nbButton nbStepperNext>next</button>
+                  </div>
+            </nb-alert>
+            </nb-card-body>
+            </nb-card>
+            </div>
 
-        </p>
-        <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton nbStepperNext>next</button>
       </nb-step>
       <nb-step [label]="labelFour">
         <ng-template #labelFour>Confirm</ng-template>
-        <h4>Confirm</h4>
-        <p class="lorem">
-        </p>
-        <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton disabled nbStepperNext>next</button>
+        <div class="col-md-12">
+          <nb-card >
+            <nb-card-header>Booking Confirmed</nb-card-header>
+            <nb-card-body>
+              You're all set. You Will recieve an invoice shortly.
+            </nb-card-body>
+          </nb-card>
+          </div>
       </nb-step>
     </nb-stepper>
   </nb-card-body>
