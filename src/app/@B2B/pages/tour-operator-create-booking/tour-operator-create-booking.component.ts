@@ -1,3 +1,4 @@
+import { StorageService } from './../../services/storage.service';
 import { EventService } from './../../services/event-service.service';
 import { B2BBookingService } from './../../services/b2-bbooking.service';
 import { Tickets, Tour, TourInfo, Event, B2BBooking, Cart } from './../../models/B2BBookingModels';
@@ -24,7 +25,9 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   public selectedEvent: Event;
   debtorBalance: number = 10000;
   // Search params
-  constructor(private b2bService: B2BBookingService, private eventService: EventService)  {
+  constructor(private b2bService: B2BBookingService,
+    private eventService: EventService,
+    private storage: StorageService)  {
 
   }
 
@@ -45,27 +48,30 @@ export class TourOperatorCreateBookingComponent implements OnInit {
 
   reserveTours(): void {
 
-    if (this.Cart.bookings) {
-      this.Cart.bookings = [];
-      this.Cart.total = 0;
-      this.Cart.event = this.selectedEvent;
+    if (this.Cart.Bookings) {
+      this.Cart.Bookings = [];
+      this.Cart.Total = 0;
+      this.Cart.Event = this.selectedEvent;
     }
     const selectedTickets = [this.selectedEvent.tickets.find(x => x.quantitySelected > 0)];
 
     for (let index = 0; index < this.tours.length; index++) {
       const booking = new B2BBooking();
       booking.items = [];
-      const element = this.tours[index];
+      const tour = this.tours[index];
 
-      booking.bookingDate = element.TourDate;
-      for (let index = 0; index < selectedTickets.length; index++) {
-        const element = selectedTickets[index];
+      booking.bookingDate = tour.TourDate;
+      for (let ticketIndex = 0; ticketIndex < selectedTickets.length; ticketIndex++) {
+        const element = selectedTickets[ticketIndex];
         element.subtotal = element.price * element.quantitySelected;
         booking.items.push(element);
-        booking.totalCost += element.subtotal
-        this.Cart.bookings.push(booking);
-        this.Cart.total += element.subtotal;
+        booking.totalCost += element.subtotal;
+        this.Cart.Bookings.push(booking);
+        this.Cart.Total += element.subtotal;
       }
+
+      this.storage.set('Cart', JSON.stringify(this.Cart));
+      this.storage.set('Tours', JSON.stringify(this.tours));
     }
 
 
@@ -74,10 +80,15 @@ export class TourOperatorCreateBookingComponent implements OnInit {
 
   ngOnInit(): void {
     this.tourDropdownDates = this.b2bService.GetTourInfo();
-    //add check againsts storage here
-    this.Cart = new Cart();
-    this.Cart.bookings = [];
-    this.Cart.total = 0;
+    // add check againsts storage here
+    if (this.storage.get('Cart') == null) {
+      this.Cart = new Cart();
+      this.Cart.Bookings = [];
+      this.Cart.Total = 0;
+    } else {
+      this.Cart = JSON.parse(this.storage.get('Cart'));
+      this.tours = JSON.parse(this.storage.get('Tours'));
+    }
   }
 
   removeTicket($event, item) {
@@ -159,7 +170,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
 
   checkCanProceed() {
     const inValidTours = this.tours.find(x => x.IsAvailable === false);
-    if(!inValidTours) {
+    if (!inValidTours) {
       this.canProceed = true;
     }
   }

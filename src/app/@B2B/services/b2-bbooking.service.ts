@@ -213,7 +213,7 @@ export class B2BBookingService {
     return true;
   }
 
-    saveBooking(booking :B2BBooking) : void {
+    saveBooking(booking: B2BBooking): void {
       this.storage.set('CurrentBooking', JSON.stringify(booking));
     }
 

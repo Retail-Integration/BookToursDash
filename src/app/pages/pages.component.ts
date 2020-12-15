@@ -14,6 +14,6 @@ import { MENU_ITEMS, ADMIN_ITEMS } from './pages-menu';
 })
 export class PagesComponent {
 
-//TODO add if here for role check, inject user service
+// TODO add if here for role check, inject user service
   menu = ADMIN_ITEMS;
 }

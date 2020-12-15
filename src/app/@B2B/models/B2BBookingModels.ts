@@ -2,7 +2,7 @@
 export class B2BBooking {
   id: number;
   bookingDate: Date;
-  totalCost: number;
+  totalCost: number = 0;
   tour: Tour;
   items: Tickets[];
 }
@@ -21,7 +21,7 @@ export class Tickets {
   itemCode: string;
   quantityAdmitted: number;
   quantitySelected: number;
-  subtotal: number
+  subtotal: number;
   constructor()  {
 
    }
@@ -57,14 +57,13 @@ export class TourInfo {
 }
 
 export class Cart {
-  event: Event;
-  bookings: B2BBooking[];
-  total: number;
-
+  Event: Event;
+  Bookings: B2BBooking[];
+  Total: number;
 
   constructor() {
-    this.bookings = [];
-    this.total = 0;
+    this.Bookings = [];
+    this.Total = 0;
   }
 }
 

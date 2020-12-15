@@ -107,44 +107,61 @@
         <div class="col-md-12">
           <nb-card >
             <nb-card-header>Payment Summary</nb-card-header>
-            <nb-card-body *ngIf="Cart.bookings" >
-              <nb-list style="justify-content: space-between;">
-                <nb-list-item>
-                  <h6>Debtor Balance</h6>
-                  <h6>{{debtorBalance}}</h6>
-                </nb-list-item>
-              </nb-list>
+            <nb-card-body *ngIf="Cart.Bookings" >
               <nb-accordion>
-                <nb-accordion-item *ngFor="let booking of Cart.bookings" >
-                  <nb-accordion-item-header>
-                    {{booking.bookingDate}}
-                    {{Cart.event.eventDesc}}
+                <nb-accordion-item *ngFor="let booking of Cart.Bookings" >
+                  <nb-accordion-item-header style="justify-content: center;">
+                    {{booking.bookingDate | date:'medium' }}
+                    {{Cart.Event.eventDesc}}
+                    {{booking.totalCost | currency:'EUR'}}
                   </nb-accordion-item-header>
                   <nb-accordion-item-body>
                     <nb-list style="justify-content: space-between;">
-                      <nb-list-item *ngFor="let ticket of booking.items">
-                        <h6>{{ticket.description}}</h6>
-                        <h6>{{ticket.subtotal}}</h6>
+                      <nb-list-item *ngFor="let ticket of booking.items" style="justify-content: space-between;">
+                        <h6>{{ticket.description}} X {{ticket.quantitySelected}} </h6>
+                        <h6>{{ticket.subtotal | currency:'EUR'}}</h6>
+                      </nb-list-item>
+                      <nb-list-item style="justify-content: space-between;">
+                        <h6>Total: </h6>
+                        <h6>{{booking.totalCost | currency:'EUR'}}</h6>
                       </nb-list-item>
                     </nb-list>
                   </nb-accordion-item-body>
                 </nb-accordion-item>
                 </nb-accordion>
-
-                <h6>{{Cart.total}}</h6>
+                <nb-alert outline="success" style="width: 100%; justify-content: space-between;" *ngIf="Cart.Total <= debtorBalance" >
+                  <div class="form-inline">
+                    <h6>This Transaction has been successfully authorized</h6>
+                    <h6>Total: </h6>
+                    <h6>{{Cart.Total | currency:'EUR'}}</h6>
+                    <button nbButton nbStepperPrevious>Previous Step</button>
+                    <button nbButton nbStepperNext>Confirm Order</button>
+                  </div>
+          </nb-alert>
+          <nb-alert status="danger" style="width: 100%; justify-content: space-between;" *ngIf="Cart.Total > debtorBalance">
+            <div class="form-inline">
+                    <h6>This Transaction can not be authorized</h6>
+                    <h6>Total: </h6>
+                    <h6>{{Cart.Total | currency:'EUR'}}</h6>
+                    <button nbButton nbStepperPrevious>prev</button>
+                    <button nbButton nbStepperNext>next</button>
+                  </div>
+            </nb-alert>
             </nb-card-body>
             </nb-card>
             </div>
-        <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton nbStepperNext>next</button>
+
       </nb-step>
       <nb-step [label]="labelFour">
         <ng-template #labelFour>Confirm</ng-template>
-        <h4>Confirm</h4>
-        <p class="lorem">
-        </p>
-        <button nbButton nbStepperPrevious>prev</button>
-        <button nbButton disabled nbStepperNext>next</button>
+        <div class="col-md-12">
+          <nb-card >
+            <nb-card-header>Booking Confirmed</nb-card-header>
+            <nb-card-body>
+              You're all set. You Will recieve an invoice shortly.
+            </nb-card-body>
+          </nb-card>
+          </div>
       </nb-step>
     </nb-stepper>
   </nb-card-body>
