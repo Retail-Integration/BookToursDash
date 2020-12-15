@@ -8,8 +8,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./bookings-listing.component.scss'],
 })
 export class BookingsListingComponent implements OnInit {
-
-
   tours =  Array<Tour>();
 
 
@@ -31,9 +29,39 @@ export class BookingsListingComponent implements OnInit {
         EventTypeCode: '002',
         EventCode: '002',
         EventEventDesc: 'Timed Tour',
-        AvailableCapacity: 90,
-        EventCapacity: 10,
+        AvailableCapacity: 0,
+        EventCapacity: 100,
         TourDateFormatted: '02/01/21',
+        TourDate : new Date(2021, 1, 2),
+        IsAvailable: true,
+        AlternativeTimes : ['13.00', '16.00'],
+      },      {
+        EventTypeCode: '003',
+        EventCode: '003',
+        EventEventDesc: 'Timed Tour',
+        AvailableCapacity: 80,
+        EventCapacity: 100,
+        TourDateFormatted: '03/01/21',
+        TourDate : new Date(2021, 1, 2),
+        IsAvailable: true,
+        AlternativeTimes : ['14.00', '17.00'],
+      },      {
+        EventTypeCode: '004',
+        EventCode: '004',
+        EventEventDesc: 'General Admission',
+        AvailableCapacity: 90,
+        EventCapacity: 100,
+        TourDateFormatted: '04/01/21',
+        TourDate : new Date(2021, 1, 2),
+        IsAvailable: true,
+        AlternativeTimes : ['11.00', '16.00'],
+      },      {
+        EventTypeCode: '005',
+        EventCode: '005',
+        EventEventDesc: 'VIP Package',
+        AvailableCapacity: 5,
+        EventCapacity: 10,
+        TourDateFormatted: '04/01/21',
         TourDate : new Date(2021, 1, 2),
         IsAvailable: true,
         AlternativeTimes : ['13.00', '16.00'],
@@ -42,22 +70,5 @@ export class BookingsListingComponent implements OnInit {
    }
 
   ngOnInit(): void {
-  //  this.populateTours();
   }
-
-  // populateTours(): Tour{
-  //   this.tours.EventTypeCode = "001",
-  //   this.tours.EventCode= "001",
-  //   this.tours.EventEventDesc= "General Admission",
-  //   this.tours.AvailableCapacity= 100,
-  //   this.tours.AvailableCapacity= 0,
-  //   this.tours.TourDateFormatted= "1/01/21",
-  //   this.tours.TourDate = new Date(2021, 1, 1),
-  //   this.tours.IsAvailable= true,
-  //   this.tours.AlternativeTimes = ["test"]
-
-
-  //         return this.tours;
-  // }
-
 }
