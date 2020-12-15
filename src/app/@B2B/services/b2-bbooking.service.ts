@@ -27,7 +27,7 @@ export class B2BBookingService {
         id: 123,
         bookingDate: new Date(),
         totalCost: 100,
-        tour: new Tour(),
+        tour : new Tour(),
         items:  [{
                   description : 'ADULT',
                   price : 15.00,
