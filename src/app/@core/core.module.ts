@@ -92,9 +92,6 @@ export const NB_CORE_PROVIDERS = [
       NbDummyAuthStrategy.setup({
         name: 'email',
         delay: 3000,
-        token: {
-          class: NbAuthJWTToken,
-        }
       }),
     ],
     forms: {
