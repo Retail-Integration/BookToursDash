@@ -1,3 +1,5 @@
+import { ShowcaseDialogComponent } from './../../../pages/modal-overlays/dialog/showcase-dialog/showcase-dialog.component';
+import { NbDialogService } from '@nebular/theme';
 import { B2BBooking } from './../../models/B2BBookingModels';
 import { B2BBookingService } from './../../services/b2-bbooking.service';
 import {
@@ -125,7 +127,7 @@ export class BookingsCalanderComponent {
 
   activeDayIsOpen: boolean = true;
   bookings: B2BBooking[];
-  constructor(private router: Router, private b2BBookingService: B2BBookingService) {
+  constructor(private router: Router, private b2BBookingService: B2BBookingService, private dialogService: NbDialogService) {
 
    b2BBookingService.getAllBookings()
    .subscribe(
@@ -183,5 +185,11 @@ export class BookingsCalanderComponent {
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
   }
+
+  // openDialog(){
+  //   this.dialogService(ShowcaseDialogComponent, {
+  //     context: 'Booking Information'
+  //   });
+  // }
 
 }

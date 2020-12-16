@@ -104,7 +104,7 @@ export class ProfitChartComponent implements AfterViewInit, OnDestroy, OnChanges
       ],
       series: [
         {
-          name: 'General Admission',
+          name: 'Morning Tour',
           type: 'bar',
           barGap: 0,
           barWidth: '20%',
@@ -122,7 +122,7 @@ export class ProfitChartComponent implements AfterViewInit, OnDestroy, OnChanges
           data: this.profitChartData.data[0],
         },
         {
-          name: 'Timed Tours',
+          name: 'Special Tour',
           type: 'bar',
           barWidth: '20%',
           itemStyle: {
@@ -137,23 +137,6 @@ export class ProfitChartComponent implements AfterViewInit, OnDestroy, OnChanges
             },
           },
           data: this.profitChartData.data[1],
-        },
-        {
-          name: 'VIP Package',
-          type: 'bar',
-          barWidth: '20%',
-          itemStyle: {
-            normal: {
-              color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                offset: 0,
-                color: eTheme.thirdLineGradFrom,
-              }, {
-                offset: 1,
-                color: eTheme.thirdLineGradTo,
-              }]),
-            },
-          },
-          data: this.profitChartData.data[2],
         },
       ],
     };
