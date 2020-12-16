@@ -9,9 +9,11 @@
 
 <div class="header-container">
   <nb-actions size="small">
-
     <nb-action class="control-item">
-      <nb-search type="rotate-layout"></nb-search>
+      <button nbButton status='primary' (click)='addEvent()'>
+      <nb-icon icon="plus-outline"></nb-icon>
+      <span>Add Booking</span>
+      </button>
     </nb-action>
   </nb-actions>
   <nb-select [selected]="currentTheme" (selectedChange)="changeTheme($event)" status="primary">

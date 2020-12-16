@@ -1,4 +1,4 @@
-import { Event, Tickets, Tour } from './../models/B2BBookingModels';
+import { Event, Tickets, TimeInfo, Tour } from './../models/B2BBookingModels';
 import { B2BBookingService } from './b2-bbooking.service';
 import { Injectable } from '@angular/core';
 
@@ -72,7 +72,7 @@ export class EventService {
         TourDateFormatted: '01/04/21',
         TourDate : new Date(2021, 4, 1, 10, 0 , 0),
         IsAvailable: false,
-        AlternativeTimes : ['15.00', '18.00'],
+        AlternativeTimes : [{DisplayTime:'11.00', Value: 11}, {DisplayTime:'12.00', Value: 12}],
       },
       {
         EventTypeCode: '001',
@@ -83,7 +83,7 @@ export class EventService {
         TourDateFormatted: '08/04/21',
         TourDate : new Date(2021, 4, 8, 10, 0 , 0),
         IsAvailable: false,
-        AlternativeTimes : ['15.00', '18.00'],
+        AlternativeTimes : [{DisplayTime:'11.00', Value: 11}, {DisplayTime:'12.00', Value: 12}],
       },
       {
         EventTypeCode: '001',
@@ -94,7 +94,7 @@ export class EventService {
         TourDateFormatted: '15/04/21',
         TourDate : new Date(2021, 4, 15, 10, 0 , 0),
         IsAvailable: false,
-        AlternativeTimes : ['15.00', '18.00'],
+        AlternativeTimes : [{DisplayTime:'11.00', Value: 11}, {DisplayTime:'12.00', Value: 12}],
       },
 
       {
@@ -106,7 +106,7 @@ export class EventService {
         TourDateFormatted: '02/01/21',
         TourDate : new Date(2021, 3, 16, 16, 0 , 0),
         IsAvailable: true,
-        AlternativeTimes : ['13.00', '16.00'],
+        AlternativeTimes : [{DisplayTime:'11.00', Value: 11}, {DisplayTime:'12.00', Value: 12}],
       },
       {
         EventTypeCode: '002',
@@ -117,7 +117,7 @@ export class EventService {
         TourDateFormatted: '02/01/21',
         TourDate : new Date(2021, 3, 23, 16, 0 , 0),
         IsAvailable: true,
-        AlternativeTimes : ['13.00', '16.00'],
+        AlternativeTimes : [{DisplayTime:'13.00', Value: 13}, {DisplayTime:'16.00', Value: 13}],
       },
       {
         EventTypeCode: '002',
@@ -128,16 +128,49 @@ export class EventService {
         TourDateFormatted: '02/01/21',
         TourDate : new Date(2021, 3, 30, 16, 0 , 0),
         IsAvailable: true,
-        AlternativeTimes : ['13.00', '16.00'],
+        AlternativeTimes : [{DisplayTime:'11.00', Value: 11}, {DisplayTime:'12.00', Value: 12}],
       },
     ];
   }
 
-  morningTimes(): string[] {
-    return ['9am', '10am', '11am', '12pm'];
+  morningTimes(): TimeInfo[] {
+    return [
+      {
+        DisplayTime: '9am',
+        Value: 9
+      },
+      {
+        DisplayTime: '10am',
+        Value: 10
+      },
+      {
+        DisplayTime: '11am',
+        Value: 11
+      },
+      {
+        DisplayTime: '12pm',
+        Value: 12
+      }];
   }
-  afternoonTimes(): string[] {
-    return ['1pm', '2pm', '3pm', '4pm'];
+  afternoonTimes(): TimeInfo[] {
+    //return ['1pm', '2pm', '3pm', '4pm'];
+    return [
+      {
+        DisplayTime: '1pm',
+        Value: 13
+      },
+      {
+        DisplayTime: '2pm',
+        Value: 14
+      },
+      {
+        DisplayTime: '3pm',
+        Value: 15
+      },
+      {
+        DisplayTime: '4pm',
+        Value: 16
+      }];
   }
 
   GenerateTickets(): Tickets[] {

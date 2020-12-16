@@ -14,9 +14,9 @@
                     <nb-option *ngFor="let tour of tourDropdownDates" value="{{tour.EventCode}}">{{tour.EventDesc}}</nb-option>
                   </nb-select>
                     <input #date nbInput  placeholder="Select Date" [nbDatepicker]="picker" [disabled]="!selectedEvent"/>
-                    <nb-datepicker #picker required (dateChange)="onDateSelect($event)"></nb-datepicker>
+                    <nb-datepicker #picker required (dateChange)="onDateSelect($event)" [min]="minDate" [max]="maxDate"></nb-datepicker>
                     <nb-select required placeholder="Select Tour" (selectedChange)="timeSelected($event)" *ngIf="selectedEvent">
-                      <nb-option *ngFor="let time of selectedEvent.times" value="{{time}}">{{time}}</nb-option>
+                      <nb-option *ngFor="let time of selectedEvent.times" value="{{time.Value}}">{{time.DisplayTime}}</nb-option>
                     </nb-select>
                     <nb-checkbox (checkedChange)="toggle($event)" #recurring [disabled]="!selectedEvent">Recurring</nb-checkbox>
                     <nb-select *ngIf="checked"  placeholder="For How Long?" (selectedChange)="setRecurringFor($event)">
@@ -74,18 +74,20 @@
                   <nb-list>
                     <nb-list-item *ngFor="let tour of tours" >
                       <nb-alert status="success" style="width: 100%; justify-content: space-between;" *ngIf="tour.IsAvailable" >
+                      <strong>Tour Available</strong>
                         <div class="form-inline">
                           <h6>{{tour.EventEventDesc}}</h6>
                           <h6>{{tour.TourDate | date: 'dd/MM/yyyy HH:mm'}}</h6>
                         </div>
                     </nb-alert>
                     <nb-alert status="danger" style="width: 100%; justify-content: space-between;" *ngIf="!tour.IsAvailable">
+                     <strong>Tour Unavailable</strong>
                       <div class="form-inline">
                         <h6>{{tour.EventEventDesc}}</h6>
                         <h6>{{tour.TourDate | date: 'dd/MM/yyyy HH:mm'}}</h6>
                         <p>This Tour Doesn't have required capacity. Please choose An alternative</p>
                     <nb-select required placeholder="Select Tour" (selectedChange)="newTourSelected($event, tour)" *ngIf="tour.AlternativeTimes">
-                      <nb-option *ngFor="let time of tour.AlternativeTimes" value="{{time}}">{{time}}</nb-option>
+                      <nb-option *ngFor="let time of tour.AlternativeTimes" value="{{time.Value}}">{{time.DisplayTime}}</nb-option>
                     </nb-select>
                       </div>
                   </nb-alert>
@@ -135,7 +137,7 @@
                     <h6>Total: </h6>
                     <h6>{{Cart.Total | currency:'EUR'}}</h6>
                     <button nbButton nbStepperPrevious>Previous Step</button>
-                    <button nbButton nbStepperNext>Confirm Order</button>
+                    <button nbButton nbStepperNext (click)="updateList()">Confirm Order</button>
                   </div>
           </nb-alert>
           <nb-alert status="danger" style="width: 100%; justify-content: space-between;" *ngIf="Cart.Total > debtorBalance">
@@ -143,8 +145,7 @@
                     <h6>This Transaction can not be authorized</h6>
                     <h6>Total: </h6>
                     <h6>{{Cart.Total | currency:'EUR'}}</h6>
-                    <button nbButton nbStepperPrevious>prev</button>
-                    <button nbButton nbStepperNext>next</button>
+                    <button nbButton status='danger' nbStepperPrevious>Prev</button>
                   </div>
             </nb-alert>
             </nb-card-body>
