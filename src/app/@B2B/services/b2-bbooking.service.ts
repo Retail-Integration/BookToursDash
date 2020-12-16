@@ -1,5 +1,5 @@
 import { EventService } from './event-service.service';
-import { BookingError, Tickets, UpdateTokenResult, Tour, TourInfo, Event as EventModel } from './../models/B2BBookingModels';
+import { BookingError, Tickets, UpdateTokenResult, Tour, TourInfo, Event as EventModel, TimeInfo } from './../models/B2BBookingModels';
 import { B2BBooking } from '../models/B2BBookingModels';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -29,157 +29,165 @@ export class B2BBookingService {
 
 
 
-  getAllBookings(): Observable<B2BBooking[]> {
+  getAllBookings(): B2BBooking[] {
 
     const date = new Date();
-    return of([
-      {
-        id: 123,
-        bookedBy: 'p.kenny@retail-int.com',
-        bookingDate: new Date(2020, 12, 14, 10, 29 , 15),
-        Event: this.events[0],
-        totalCost: 100,
-        tour : this.tours[0],
-        items:  [{
-                  description : 'ADULT',
-                  price : 15.00,
-                  itemCode : 'ADULT',
-                  quantityAdmitted : 1,
-                  quantitySelected : 0,
-                  subtotal: 0,
-                },
-                {
-                  description : 'Family',
-                  price : 40.00,
-                  itemCode : 'FAMILY',
-                  quantityAdmitted : 4,
-                  quantitySelected : 0,
-                  subtotal: 0,
-                }],
-      },
-      {
-        id: 124,
-        bookedBy: 'p.kenny@retail-int.com',
-        bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
-        totalCost: 950.00,
-        Event: this.events[0],
-        tour: this.tours[1],
-        items:  [{
-                  description : 'OAP',
-                  price : 15.00,
-                  itemCode : 'OAP',
-                  quantityAdmitted : 1,
-                  quantitySelected : 10,
-                  subtotal: 150.00,
-                },
-                {
-                  description : 'Family',
-                  price : 40.00,
-                  itemCode : 'FAMILY',
-                  quantityAdmitted : 4,
-                  quantitySelected : 20,
-                  subtotal: 800.00,
-                }],
-      },
-      {
-        id: 125,
-        bookedBy: 'e.bradshaw@retail-int.com',
-        bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
-        totalCost: 555.00,
-        Event: this.events[0],
-        tour: this.tours[2],
-        items:  [{
-                  description : 'ADULT',
-                  price : 15.00,
-                  itemCode : 'ADULT',
-                  quantityAdmitted : 1,
-                  quantitySelected : 10,
-                  subtotal: 150.00,
-                },
-                {
-                  description : 'Family',
-                  price : 40.00,
-                  itemCode : 'FAMILY',
-                  quantityAdmitted : 4,
-                  quantitySelected : 10,
-                  subtotal: 400.00,
-                }],
-      },
-      {
-        id: 126,
-        bookedBy: 'e.bradshaw@retail-int.com',
-        bookingDate:  new Date(2020, 12, 9, 15, 29 , 15),
-        totalCost: 350.00,
-        Event: this.events[1],
-        tour : this.tours[3],
-        items:  [{
-                  description : 'ADULT',
-                  price : 15.00,
-                  itemCode : 'ADULT',
-                  quantityAdmitted : 1,
-                  quantitySelected : 10,
-                  subtotal: 150.00,
-                },
-                {
-                  description : 'Family',
-                  price : 40.00,
-                  itemCode : 'FAMILY',
-                  quantityAdmitted : 4,
-                  quantitySelected : 5,
-                  subtotal: 200.00,
-                }],
-      },
-      {
-        id: 127,
-        bookedBy: 'e.bradshaw@retail-int.com',
-        bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
-        totalCost: 550.00,
-        Event: this.events[1],
-        tour: this.tours[4],
-        items:   [{
-                  description : 'ADULT',
-                  price : 15.00,
-                  itemCode : 'ADULT',
-                  quantityAdmitted : 1,
-                  quantitySelected : 10,
-                  subtotal: 150.00,
-                },
-                {
-                  description : 'Family',
-                  price : 40.00,
-                  itemCode : 'FAMILY',
-                  quantityAdmitted : 4,
-                  quantitySelected : 10,
-                  subtotal: 400.00,
-                }],
-      },
-      {
-        id: 128,
-        bookedBy: 'e.bradshaw@retail-int.com',
-        bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
-        totalCost: 490.00,
-        Event: this.events[1],
-        tour: this.tours[5],
-        items:  [{
-                  description : 'ADULT',
-                  price : 15.00,
-                  itemCode : 'ADULT',
-                  quantityAdmitted : 1,
-                  quantitySelected : 6,
-                  subtotal: 90.00,
-                },
-                {
-                  description : 'Family',
-                  price : 40.00,
-                  itemCode : 'FAMILY',
-                  quantityAdmitted : 4,
-                  quantitySelected : 10,
-                  subtotal: 400.00,
-                }],
-      },
-    ]);
-  }
 
+    if (this.storage.get('Bookings')) {
+      return JSON.parse(this.storage.get('Bookings'));
+    } else {
+      const startData: B2BBooking[] = [
+        {
+          id: 123,
+          bookedBy: 'p.kenny@retail-int.com',
+          bookingDate: new Date(2020, 12, 14, 10, 29 , 15),
+          Event: this.events[0],
+          totalCost: 350.00,
+          tour : this.tours[0],
+          items:  [{
+                    description : 'ADULT',
+                    price : 15.00,
+                    itemCode : 'ADULT',
+                    quantityAdmitted : 1,
+                    quantitySelected : 10,
+                    subtotal: 150.00,
+                  },
+                  {
+                    description : 'Family',
+                    price : 40.00,
+                    itemCode : 'FAMILY',
+                    quantityAdmitted : 4,
+                    quantitySelected : 5,
+                    subtotal: 200.00,
+                  }],
+        },
+        {
+          id: 124,
+          bookedBy: 'p.kenny@retail-int.com',
+          bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
+          totalCost: 950.00,
+          Event: this.events[0],
+          tour: this.tours[1],
+          items:  [{
+                    description : 'OAP',
+                    price : 15.00,
+                    itemCode : 'OAP',
+                    quantityAdmitted : 1,
+                    quantitySelected : 10,
+                    subtotal: 150.00,
+                  },
+                  {
+                    description : 'Family',
+                    price : 40.00,
+                    itemCode : 'FAMILY',
+                    quantityAdmitted : 4,
+                    quantitySelected : 20,
+                    subtotal: 800.00,
+                  }],
+        },
+        {
+          id: 125,
+          bookedBy: 'e.bradshaw@retail-int.com',
+          bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
+          totalCost: 555.00,
+          Event: this.events[0],
+          tour: this.tours[2],
+          items:  [{
+                    description : 'ADULT',
+                    price : 15.00,
+                    itemCode : 'ADULT',
+                    quantityAdmitted : 1,
+                    quantitySelected : 10,
+                    subtotal: 150.00,
+                  },
+                  {
+                    description : 'Family',
+                    price : 40.00,
+                    itemCode : 'FAMILY',
+                    quantityAdmitted : 4,
+                    quantitySelected : 10,
+                    subtotal: 400.00,
+                  }],
+        },
+        {
+          id: 126,
+          bookedBy: 'e.bradshaw@retail-int.com',
+          bookingDate:  new Date(2020, 12, 9, 15, 29 , 15),
+          totalCost: 350.00,
+          Event: this.events[1],
+          tour : this.tours[3],
+          items:  [{
+                    description : 'ADULT',
+                    price : 15.00,
+                    itemCode : 'ADULT',
+                    quantityAdmitted : 1,
+                    quantitySelected : 10,
+                    subtotal: 150.00,
+                  },
+                  {
+                    description : 'Family',
+                    price : 40.00,
+                    itemCode : 'FAMILY',
+                    quantityAdmitted : 4,
+                    quantitySelected : 5,
+                    subtotal: 200.00,
+                  }],
+        },
+        {
+          id: 127,
+          bookedBy: 'e.bradshaw@retail-int.com',
+          bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
+          totalCost: 550.00,
+          Event: this.events[1],
+          tour: this.tours[4],
+          items:   [{
+                    description : 'ADULT',
+                    price : 15.00,
+                    itemCode : 'ADULT',
+                    quantityAdmitted : 1,
+                    quantitySelected : 10,
+                    subtotal: 150.00,
+                  },
+                  {
+                    description : 'Family',
+                    price : 40.00,
+                    itemCode : 'FAMILY',
+                    quantityAdmitted : 4,
+                    quantitySelected : 10,
+                    subtotal: 400.00,
+                  }],
+        },
+        {
+          id: 128,
+          bookedBy: 'e.bradshaw@retail-int.com',
+          bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
+          totalCost: 490.00,
+          Event: this.events[1],
+          tour: this.tours[5],
+          items:  [{
+                    description : 'ADULT',
+                    price : 15.00,
+                    itemCode : 'ADULT',
+                    quantityAdmitted : 1,
+                    quantitySelected : 6,
+                    subtotal: 90.00,
+                  },
+                  {
+                    description : 'Family',
+                    price : 40.00,
+                    itemCode : 'FAMILY',
+                    quantityAdmitted : 4,
+                    quantitySelected : 10,
+                    subtotal: 400.00,
+                  }],
+        },
+      ];
+
+      this.storage.set('Bookings', JSON.stringify(startData));
+      return startData;
+    }
+
+  }
 
   GenerateTours(dates: Date[], event: EventModel): Tour[] {
     const tours: Tour[] = [];
@@ -195,7 +203,8 @@ export class B2BBookingService {
       if (index / 2) {
         tour.IsAvailable = true;
       } else {
-        tour.AlternativeTimes = event.times;
+        const otherTimes: TimeInfo[] = event.times.filter(x => x.Value !== element.getHours());
+        tour.AlternativeTimes = otherTimes;
         tour.IsAvailable = false;
       }
       tours.push(tour);
@@ -238,6 +247,21 @@ export class B2BBookingService {
     saveBooking(booking: B2BBooking): void {
       this.storage.set('CurrentBooking', JSON.stringify(booking));
     }
+
+    saveBookings(bookings: B2BBooking[]): void {
+      if (!this.storage.get('Bookings')) {
+        this.storage.set('Bookings', JSON.stringify(bookings));
+      }
+
+      const allBookings = JSON.parse(this.storage.get('Bookings'));
+      for (let index = 0; index < bookings.length; index++) {
+        const element = bookings[index];
+        allBookings.push(element);
+      }
+
+      this.storage.set('Bookings', JSON.stringify(allBookings));
+    }
+
 
   // postPayment(payment: PaymentResource): Observable<boolean | BookingError> {
   //   const api = this.api + BookingApiEndpoints.Payment;

@@ -14,7 +14,7 @@ export class Event {
   eventCode: string;
   eventDesc: string;
   tickets: Tickets[];
-  times: string[];
+  times: TimeInfo[];
   selectedTime: string = '';
 }
 
@@ -40,7 +40,7 @@ export class Tour {
   TourDateFormatted: string;
   TourDate: Date;
   IsAvailable: boolean;
-  AlternativeTimes: string[];
+  AlternativeTimes:  TimeInfo[];
 }
 
 export class BookingError {
@@ -58,6 +58,11 @@ export interface UpdateTokenResult {
 export class TourInfo {
   EventCode: string;
   EventDesc: string;
+}
+
+export class TimeInfo {
+  DisplayTime: string;
+  Value: number;
 }
 
 export class Cart {
