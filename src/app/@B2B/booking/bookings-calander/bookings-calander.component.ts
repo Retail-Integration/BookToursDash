@@ -127,7 +127,9 @@ export class BookingsCalanderComponent {
 
   activeDayIsOpen: boolean = true;
   bookings: B2BBooking[];
-  constructor(private router: Router, private b2BBookingService: B2BBookingService, private dialogService: NbDialogService) {
+  constructor(private router: Router,
+    private b2BBookingService: B2BBookingService,
+    private dialogService: NbDialogService) {
 
    b2BBookingService.getAllBookings()
    .subscribe(

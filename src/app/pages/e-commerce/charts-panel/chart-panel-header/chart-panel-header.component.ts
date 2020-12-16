@@ -51,6 +51,10 @@ export class ChartPanelHeaderComponent implements OnDestroy {
         iconColor: orderProfitLegend.secondItem,
         title: 'Special Tour',
       },
+      {
+        iconColor: orderProfitLegend.thirdItem,
+        title: 'No Shows',
+      },
     ];
   }
 

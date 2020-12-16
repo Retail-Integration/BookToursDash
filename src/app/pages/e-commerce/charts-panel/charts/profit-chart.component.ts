@@ -106,20 +106,19 @@ export class ProfitChartComponent implements AfterViewInit, OnDestroy, OnChanges
         {
           name: 'Morning Tour',
           type: 'bar',
-          barGap: 0,
           barWidth: '20%',
           itemStyle: {
             normal: {
               color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                 offset: 0,
-                color: eTheme.firstLineGradFrom,
+                color: eTheme.thirdLineGradFrom,
               }, {
                 offset: 1,
-                color: eTheme.firstLineGradTo,
+                color: eTheme.thirdLineGradTo,
               }]),
             },
           },
-          data: this.profitChartData.data[0],
+          data: this.profitChartData.data[2],
         },
         {
           name: 'Special Tour',
@@ -138,6 +137,7 @@ export class ProfitChartComponent implements AfterViewInit, OnDestroy, OnChanges
           },
           data: this.profitChartData.data[1],
         },
+
       ],
     };
   }
