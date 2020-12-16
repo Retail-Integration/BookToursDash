@@ -33,12 +33,10 @@ export class B2BBookingService {
 
     const date = new Date();
 
-    if(this.storage.get('Bookings'))
-    {
+    if (this.storage.get('Bookings')) {
       return JSON.parse(this.storage.get('Bookings'));
-    }
-    else {
-      const startData : B2BBooking[] = [
+    } else {
+      const startData: B2BBooking[] = [
         {
           id: 123,
           bookedBy: 'p.kenny@retail-int.com',
@@ -205,7 +203,7 @@ export class B2BBookingService {
       if (index / 2) {
         tour.IsAvailable = true;
       } else {
-        const otherTimes : TimeInfo[] = event.times.filter(x => x.Value != element.getHours())
+        const otherTimes: TimeInfo[] = event.times.filter(x => x.Value !== element.getHours());
         tour.AlternativeTimes = otherTimes;
         tour.IsAvailable = false;
       }
@@ -251,8 +249,7 @@ export class B2BBookingService {
     }
 
     saveBookings(bookings: B2BBooking[]): void {
-      if(!this.storage.get('Bookings'))
-      {
+      if (!this.storage.get('Bookings')) {
         this.storage.set('Bookings', JSON.stringify(bookings));
       }
 

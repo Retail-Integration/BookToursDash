@@ -15,7 +15,7 @@ export class BookingsListingComponent implements OnInit {
   bookings: B2BBooking[];
   constructor(private booking: B2BBookingService, private storage: StorageService) {
     this.loggedIn = storage.getSession('User');
-    this.bookings = this.booking.getAllBookings()
+    this.bookings = this.booking.getAllBookings();
    }
 
   ngOnInit(): void {

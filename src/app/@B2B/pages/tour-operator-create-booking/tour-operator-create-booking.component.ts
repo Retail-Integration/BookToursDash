@@ -32,7 +32,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   constructor(private b2bService: B2BBookingService,
     private eventService: EventService,
     private storage: StorageService,
-    protected dateService: NbDateService<Date>,)  {
+    protected dateService: NbDateService<Date>)  {
       this.loggedIn = storage.getSession('User');
       this.minDate = this.dateService.addDay(this.dateService.today(), 1);
       this.maxDate = this.dateService.addMonth(this.dateService.today(), 3);
@@ -65,7 +65,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
     for (let index = 0; index < this.tours.length; index++) {
       const booking = new B2BBooking();
       booking.id = Math.floor((Math.random() * 1000) + 1);
-      booking.bookedBy = this.loggedIn
+      booking.bookedBy = this.loggedIn;
       booking.Event = this.selectedEvent;
       booking.items = [];
       const tour = this.tours[index];
