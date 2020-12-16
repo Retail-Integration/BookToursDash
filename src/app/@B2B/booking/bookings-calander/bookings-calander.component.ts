@@ -131,10 +131,7 @@ export class BookingsCalanderComponent {
     private b2BBookingService: B2BBookingService,
     private dialogService: NbDialogService) {
 
-   b2BBookingService.getAllBookings()
-   .subscribe(
-    (result: B2BBooking[]) => this.bookings = result.sort(x => x.tour.TourDate.getDate()),
-  );
+      this.bookings = b2BBookingService.getAllBookings();
   }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
