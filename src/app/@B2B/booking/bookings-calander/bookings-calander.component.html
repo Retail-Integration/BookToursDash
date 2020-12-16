@@ -106,63 +106,56 @@
   <table class="table table-bordered">
     <thead>
       <tr>
-        <th>Title</th>
-        <th>Primary color</th>
-        <th>Secondary color</th>
-        <th>Starts at</th>
-        <th>Ends at</th>
-        <th>Remove</th>
+        <th>Booking ID</th>
+        <th>Total Cost</th>
+        <th>Date</th>
+        <th>Booked By</th>
+        <th>Options</th>
       </tr>
     </thead>
 
     <tbody>
-      <tr *ngFor="let event of events">
+      <tr *ngFor="let booking of bookings">
         <td>
-          <input
+          <label
             type="text"
             class="form-control"
-
+            (keyup)="refresh.next()">
+              {{booking.id}}
+          </label>
+        </td>
+        <td>
+          <label
+            type="text"
+            class="form-control"
+            (keyup)="refresh.next()">
+              €{{booking.totalCost}}
+          </label>
+        </td>
+        <td>
+          <label
+            type="text"
+            class="form-control"
             (keyup)="refresh.next()"
-          />
-        </td>
-        <td>
-          <input
-            type="color"
-            (change)="refresh.next()"
-          />
-        </td>
-        <td>
-          <input
-            type="color"
-            (change)="refresh.next()"
-          />
-        </td>
-        <td>
-          <input
-            class="form-control"
-            type="text"
-            mwlFlatpickr
-            (ngModelChange)="refresh.next()"
-
             dateFormat="Y-m-dTH:i"
             altFormat="F j, Y H:i"
-            placeholder="Not set"
-          />
+            placeholder="Not set">
+              {{booking.bookingDate}}
+          </label>
         </td>
         <td>
-          <input
-            class="form-control"
+          <label
             type="text"
-            mwlFlatpickr
-            (ngModelChange)="refresh.next()"
-
-            dateFormat="Y-m-dTH:i"
-            altFormat="F j, Y H:i"
-            placeholder="Not set"
-          />
+            class="form-control"
+            (keyup)="refresh.next()">
+              {{booking.bookedBy}}
+          </label>
         </td>
         <td>
-          <button class="btn btn-danger" (click)="deleteEvent(event)">
+          <button class="btn btn-success" (click)="deleteEvent(booking)">
+            Info
+          </button>
+          <button class="btn btn-danger" (click)="deleteEvent(booking)">
             Delete
           </button>
         </td>

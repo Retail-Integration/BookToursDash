@@ -1,3 +1,5 @@
+import { B2BBooking } from './../../models/B2BBookingModels';
+import { B2BBookingService } from './../../services/b2-bbooking.service';
 import {
   Component,
   ChangeDetectionStrategy,
@@ -122,10 +124,14 @@ export class BookingsCalanderComponent {
   ];
 
   activeDayIsOpen: boolean = true;
+  bookings: B2BBooking[];
+  constructor(private router: Router, private b2BBookingService: B2BBookingService) {
 
-  constructor(private router: Router) {
-   }
-
+   b2BBookingService.getAllBookings()
+   .subscribe(
+    (result: B2BBooking[]) => this.bookings = result.sort(x => x.tour.TourDate.getDate()),
+  );
+  }
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
