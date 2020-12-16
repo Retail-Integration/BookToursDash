@@ -5,8 +5,9 @@
     <nb-accordion >
       <nb-accordion-item #item *ngFor="let booking of bookings">
         <nb-accordion-item-header>
-            <h6>#{{booking.id}} </h6>&nbsp;
-            <h6> {{booking.tour.TourDate | date:'medium'}}     </h6>
+            <h6># {{booking.id}} </h6>&nbsp;
+            <h6> {{booking.tour.EventEventDesc}}</h6>&nbsp;
+            <h6> {{booking.tour.TourDate | date:'medium'}}</h6>
         </nb-accordion-item-header>
         <nb-accordion-item-body>
           <div class="row">
