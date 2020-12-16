@@ -31,3 +31,12 @@
 
   @include nb-overrides();
 };
+
+.navigation {
+  display: none;
+}
+
+.loginLogo {
+  margin: 0 auto;
+  display: block;
+}

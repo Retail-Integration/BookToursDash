@@ -1,3 +1,4 @@
+import { EventService } from './event-service.service';
 import { BookingError, Tickets, UpdateTokenResult, Tour, TourInfo, Event as EventModel } from './../models/B2BBookingModels';
 import { B2BBooking } from '../models/B2BBookingModels';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
@@ -16,18 +17,29 @@ export class B2BBookingService {
 
  // date.setDate(date.getDate() + 1);
   CurrentBooking = new B2BBooking ();
+  events: EventModel[] = [];
+  tours: Tour[] = [];
   constructor(private http: HttpClient,
-    private storage: StorageService) {
-
+    private storage: StorageService,
+    private eventService: EventService) {
+    this.events =  this.eventService.sampleBookedEvents();
+    this.tours = this.eventService.sampleTours();
     }
 
+
+
+
   getAllBookings(): Observable<B2BBooking[]> {
+
+    const date = new Date();
     return of([
       {
         id: 123,
-        bookingDate: new Date(),
+        bookedBy: 'p.kenny@retail-int.com',
+        bookingDate: new Date(2020, 12, 14, 10, 29 , 15),
+        Event: this.events[0],
         totalCost: 100,
-        tour : new Tour(),
+        tour : this.tours[0],
         items:  [{
                   description : 'ADULT',
                   price : 15.00,
@@ -47,117 +59,127 @@ export class B2BBookingService {
       },
       {
         id: 124,
-        bookingDate: new Date(),
-        totalCost: 100,
-        tour: new Tour(),
+        bookedBy: 'p.kenny@retail-int.com',
+        bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
+        totalCost: 950.00,
+        Event: this.events[0],
+        tour: this.tours[1],
         items:  [{
-                  description : 'ADULT',
+                  description : 'OAP',
                   price : 15.00,
-                  itemCode : 'ADULT',
+                  itemCode : 'OAP',
                   quantityAdmitted : 1,
-                  quantitySelected : 0,
-                  subtotal: 0,
+                  quantitySelected : 10,
+                  subtotal: 150.00,
                 },
                 {
                   description : 'Family',
                   price : 40.00,
                   itemCode : 'FAMILY',
                   quantityAdmitted : 4,
-                  quantitySelected : 0,
-                  subtotal: 0,
+                  quantitySelected : 20,
+                  subtotal: 800.00,
                 }],
       },
       {
         id: 125,
-        bookingDate: new Date(),
-        totalCost: 100,
-        tour: new Tour(),
+        bookedBy: 'e.bradshaw@retail-int.com',
+        bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
+        totalCost: 555.00,
+        Event: this.events[0],
+        tour: this.tours[2],
         items:  [{
                   description : 'ADULT',
                   price : 15.00,
                   itemCode : 'ADULT',
                   quantityAdmitted : 1,
-                  quantitySelected : 0,
-                  subtotal: 0,
+                  quantitySelected : 10,
+                  subtotal: 150.00,
                 },
                 {
                   description : 'Family',
                   price : 40.00,
                   itemCode : 'FAMILY',
                   quantityAdmitted : 4,
-                  quantitySelected : 0,
-                  subtotal: 0,
+                  quantitySelected : 10,
+                  subtotal: 400.00,
                 }],
       },
-
+      {
+        id: 126,
+        bookedBy: 'e.bradshaw@retail-int.com',
+        bookingDate:  new Date(2020, 12, 9, 15, 29 , 15),
+        totalCost: 350.00,
+        Event: this.events[1],
+        tour : this.tours[3],
+        items:  [{
+                  description : 'ADULT',
+                  price : 15.00,
+                  itemCode : 'ADULT',
+                  quantityAdmitted : 1,
+                  quantitySelected : 10,
+                  subtotal: 150.00,
+                },
+                {
+                  description : 'Family',
+                  price : 40.00,
+                  itemCode : 'FAMILY',
+                  quantityAdmitted : 4,
+                  quantitySelected : 5,
+                  subtotal: 200.00,
+                }],
+      },
+      {
+        id: 127,
+        bookedBy: 'e.bradshaw@retail-int.com',
+        bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
+        totalCost: 550.00,
+        Event: this.events[1],
+        tour: this.tours[4],
+        items:   [{
+                  description : 'ADULT',
+                  price : 15.00,
+                  itemCode : 'ADULT',
+                  quantityAdmitted : 1,
+                  quantitySelected : 10,
+                  subtotal: 150.00,
+                },
+                {
+                  description : 'Family',
+                  price : 40.00,
+                  itemCode : 'FAMILY',
+                  quantityAdmitted : 4,
+                  quantitySelected : 10,
+                  subtotal: 400.00,
+                }],
+      },
+      {
+        id: 128,
+        bookedBy: 'e.bradshaw@retail-int.com',
+        bookingDate: new Date(2020, 12, 9, 15, 29 , 15),
+        totalCost: 490.00,
+        Event: this.events[1],
+        tour: this.tours[5],
+        items:  [{
+                  description : 'ADULT',
+                  price : 15.00,
+                  itemCode : 'ADULT',
+                  quantityAdmitted : 1,
+                  quantitySelected : 6,
+                  subtotal: 90.00,
+                },
+                {
+                  description : 'Family',
+                  price : 40.00,
+                  itemCode : 'FAMILY',
+                  quantityAdmitted : 4,
+                  quantitySelected : 10,
+                  subtotal: 400.00,
+                }],
+      },
     ]);
   }
 
-  GenerateTickets(): Tickets[] {
-    return [
-      {
-         description : 'ADULT',
-         price : 15.00,
-         itemCode : 'ADULT',
-         quantityAdmitted : 1,
-         quantitySelected : 0,
-         subtotal: 0,
-       },
-        {
-         description : 'Family',
-         price : 40.00,
-         itemCode : 'FAMILY',
-         quantityAdmitted : 4,
-         quantitySelected : 0,
-         subtotal: 0,
-       },
-        {
-         description : 'OAP',
-         price : 10.00,
-         itemCode : 'OAP',
-         quantityAdmitted : 1,
-         quantitySelected : 0,
-         subtotal: 0,
-       },
-      {
-         description : 'Student',
-         price : 10.00,
-         itemCode : 'STUDENT',
-         quantityAdmitted : 1,
-         quantitySelected : 0,
-         subtotal: 0,
-       },
-     ];
-  }
-
-  GenerateSpecialTickets(): Tickets[] {
-  return [
-    {
-        description : 'ADULT SPECIAL RATE',
-        price : 12.50,
-        itemCode : 'ADULT',
-        quantityAdmitted : 1,
-        quantitySelected : 0,
-        subtotal: 0,
-      },
-      {
-        description : 'Family SPECIAL RATE',
-        price : 30.00,
-        itemCode : 'FAMILY',
-        quantityAdmitted : 4,
-        quantitySelected : 0,
-        subtotal: 0,
-      },
-      {
-        description : 'Children SPECIAL RATE',
-        price : 5.00,
-        itemCode : 'OAP',
-        quantityAdmitted : 1,
-        quantitySelected : 0,
-        subtotal: 0,
-      },
-    ];
-  }
 
   GenerateTours(dates: Date[], event: EventModel): Tour[] {
     const tours: Tour[] = [];
@@ -199,7 +221,7 @@ export class B2BBookingService {
   createB2BBooking(): B2BBooking  {
     this.CurrentBooking.id = Math.floor((Math.random() * 100) + 1);
     this.CurrentBooking.totalCost = 0;
-    this.CurrentBooking.bookingDate = new Date();
+    this.CurrentBooking.bookingDate = new Date(new Date().getDate());
     this.CurrentBooking.items = [];
     this.storage.set('CurrentBooking', JSON.stringify(this.CurrentBooking));
     return this.CurrentBooking;
