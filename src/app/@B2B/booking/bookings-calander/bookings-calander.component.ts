@@ -185,10 +185,12 @@ export class BookingsCalanderComponent {
     this.activeDayIsOpen = false;
   }
 
-  // openDialog(){
-  //   this.dialogService(ShowcaseDialogComponent, {
-  //     context: 'Booking Information'
-  //   });
-  // }
+  openDialog(){
+    this.dialogService.open(ShowcaseDialogComponent, {
+      context: {
+        title: 'Booking Information',
+      },
+    });
+  }
 
 }
