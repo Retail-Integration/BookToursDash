@@ -28,6 +28,7 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   loggedIn: string = '';
   minDate: Date;
   maxDate: Date;
+  lastOrderRef = 128;
   // Search params
   constructor(private b2bService: B2BBookingService,
     private eventService: EventService,
@@ -60,11 +61,11 @@ export class TourOperatorCreateBookingComponent implements OnInit {
       this.Cart.Total = 0;
       this.Cart.Event = this.selectedEvent;
     }
-    const selectedTickets = [this.selectedEvent.tickets.find(x => x.quantitySelected > 0)];
+    const selectedTickets = this.selectedEvent.tickets.filter(x => x.quantitySelected > 0);
 
     for (let index = 0; index < this.tours.length; index++) {
       const booking = new B2BBooking();
-      booking.id = Math.floor((Math.random() * 1000) + 1);
+      booking.id = Number(this.lastOrderRef++);
       booking.bookedBy = this.loggedIn;
       booking.Event = this.selectedEvent;
       booking.items = [];
@@ -76,9 +77,9 @@ export class TourOperatorCreateBookingComponent implements OnInit {
         element.subtotal = element.price * element.quantitySelected;
         booking.items.push(element);
         booking.totalCost += element.subtotal;
-        this.Cart.Bookings.push(booking);
         this.Cart.Total += element.subtotal;
       }
+      this.Cart.Bookings.push(booking);
     }
 
   }
@@ -161,13 +162,19 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   }
 
   reset() {
-    this.selectedEvent.tickets.find(x => x.quantitySelected > 0).quantitySelected = 0;
-    this.selectedEvent.tickets.find(x => x.quantitySelected > 0).subtotal = 0;
+    for (let index = 0; index < this.selectedEvent.tickets.length; index++) {
+      const element = this.selectedEvent.tickets[index];
+      element.quantitySelected == 0;
+      element.quantitySelected == 0;
+    }
     this.selectedEvent = undefined;
     this.selectedDate = undefined;
     this.recurring = undefined;
     this.tours = [];
     this.selectedDates = [];
+    this.Cart.Bookings = [];
+    this.Cart.Total = 0;
+    this.checked = false;
 
 
   }

@@ -72,8 +72,8 @@
                 <nb-card-header>Results</nb-card-header>
                 <nb-card-body *ngIf="tours" >
                   <nb-list>
-                    <nb-list-item *ngFor="let tour of tours" >
-                      <nb-alert status="success" style="width: 100%; justify-content: space-between;" *ngIf="tour.IsAvailable" >
+                    <nb-list-item *ngFor="let tour of tours" style="width: 100%; justify-content: space-between;">
+                      <nb-alert status="success" style="width: 100%; justify-content: space-between;"  *ngIf="tour.IsAvailable" >
                       <strong>Tour Available</strong>
                         <div class="form-inline">
                           <h6>{{tour.EventEventDesc}}</h6>
