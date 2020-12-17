@@ -164,8 +164,8 @@ export class TourOperatorCreateBookingComponent implements OnInit {
   reset() {
     for (let index = 0; index < this.selectedEvent.tickets.length; index++) {
       const element = this.selectedEvent.tickets[index];
-      element.quantitySelected == 0;
-      element.quantitySelected == 0;
+      element.quantitySelected === 0;
+      element.quantitySelected === 0;
     }
     this.selectedEvent = undefined;
     this.selectedDate = undefined;
